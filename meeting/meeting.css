@@ -1,0 +1,20 @@
+.animal { background-image: url(animal.svg); background-repeat:  no-repeat; }
+
+.animal .head {
+	width: 100px;
+	height: 100px;
+	background-position-x: 0px;
+	overflow: hidden;
+}
+
+.animal .body {
+	width: 200px;
+	height: 100px;
+	background-position-x: 200px;
+	overflow: hidden;
+}
+
+.animal.cow .part   { background-position-y: 0px; }
+.animal.sheep .part { background-position-y: 100px; }
+.animal.pig .part   { background-position-y: 200px; }
+
