@@ -79,7 +79,7 @@ var symbols = {
    content: {
    dom: [
    {
-      rect: [-82,-28,45,36],
+      rect: [-82,-28,58,36],
       borderRadius: [10,10,10,10],
       transform: [[82,46]],
       id: 'ddl-body',
@@ -88,7 +88,7 @@ var symbols = {
       fill: ['rgba(227,228,59,1.00)']
    },
    {
-      rect: [34,0,28,26],
+      rect: [34,0,43,38],
       borderRadius: [10,10,10,10],
       transform: [[3],[12]],
       id: 'ddl-head',

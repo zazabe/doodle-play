@@ -1,17 +1,24 @@
 console.log('main');
 
+var debug = false; 
+
 $.Edge.registerCompositionReadyHandler( 'meeting-2', function(){
 	$('div').each(function(){
-		var id = $(this).attr('id'), matches = [], i = 0, el;
+		var  el = $(this), id = el.attr('id'), matches = [], elements = null, doodle_part = null;
 		console.group(id);
-		var elements = id.match(/([^_]+)/g);
-		console.log(elements);
-		/*
+		elements = id.match(/([^_]+)/g);
 		for(var index in elements){
-			el = elements[index];
-			console.log(el, el.match(/ddl-(.*?)-(.*?)/));	
+			doodle_parts = elements[index].match(/([^-]+)/g);
+			if(doodle_parts[0] && doodle_parts[0] == 'ddl'){
+				for(var i = 0 ; i < doodle_parts.length ; i++){
+					el.addClass(doodle_parts[i]);
+				}
+				if(debug) {
+					el.addClass('debug');
+				}
+			}
 		}
-		*/
+		console.log('apply class', el.attr('class'));
 		console.groupEnd();
 	});
 });

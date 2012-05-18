@@ -1,20 +1,24 @@
-.animal { background-image: url(animal.svg); background-repeat:  no-repeat; }
+.debug {
+	border: 1px solid #900 !important;
+}
+
+.animal .head, .animal .body { background-image: url(animal2.svg); background-color: transparent !important; background-repeat:  no-repeat !important;  }
 
 .animal .head {
 	width: 100px;
 	height: 100px;
-	background-position-x: 0px;
+	background-position-x: -60px;
 	overflow: hidden;
 }
 
 .animal .body {
 	width: 200px;
 	height: 100px;
-	background-position-x: 200px;
+	background-position-x: 0px;
 	overflow: hidden;
 }
 
-.animal.cow .part   { background-position-y: 0px; }
-.animal.sheep .part { background-position-y: 100px; }
-.animal.pig .part   { background-position-y: 200px; }
+.animal.cow .ddl   { background-position-y: 0px; }
+.animal.sheep .ddl { background-position-y: 100px; }
+.animal.pig  .ddl  { background-position-y: 200px; }
 
