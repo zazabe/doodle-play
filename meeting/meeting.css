@@ -2,13 +2,19 @@
 	border: 1px solid #900 !important;
 }
 
-.animal .head, .animal .body { background-image: url(animal2.svg); background-color: transparent !important; background-repeat:  no-repeat !important;  }
+.animal .head, .animal .body { 
+	background-image: url(animal2.svg); 
+	background-color: transparent !important; 
+	background-repeat: no-repeat !important;  
+	background-size: 190%;
+}
 
 .animal .head {
 	width: 100px;
-	height: 100px;
+	height: 100px;	
 	background-position-x: -60px;
 	overflow: hidden;
+	
 }
 
 .animal .body {
