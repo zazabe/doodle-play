@@ -1,0 +1,22 @@
+.debug .animal .head, .debug .animal .body{
+	border: 1px solid #900 !important;
+}
+
+.debug .animal {
+	border: 1px solid #090 !important;
+}
+
+.animal {
+	width: 2000px;
+	height: 2000px;
+	background-image: url(animal2.svg); 
+	background-color: transparent !important; 
+	background-repeat:  no-repeat !important; 	-webkit-transform: scale(0.33);
+	-webkit-transform-origin: 0% 0%;
+}
+
+body {
+	margin:0;padding:0; 
+	-webkit-transform: scale(3);
+	-webkit-transform-origin: 0% 0%;
+}

@@ -20,6 +20,24 @@ $.Edge.registerCompositionReadyHandler( 'meeting-2', function(){
 		}
 		console.log('apply class', el.attr('class'));
 		console.groupEnd();
+		
+	
+	});
+});
+
+	
+$('.theme').bind('change', function(){
+	var theme =$(this).val(), type = $(this).attr('id'), doodles = type ==  'main' ? $('.main') : $('.animal').not('.main');
+	
+	doodles.each(function(){
+		var el = $(this), themes = ['cow', 'pig', 'sheep1', 'sheep2'];
+		for(var index in themes){
+			console.log('remove',themes[index]);
+			el.removeClass(themes[index]);
+		}
+		console.log('add',theme, el.attr('class'));
+			
+		el.addClass(theme);
 	});
 });
 

@@ -88,7 +88,7 @@ var symbols = {
       fill: ['rgba(227,228,59,1.00)']
    },
    {
-      rect: [34,0,43,38],
+      rect: [34,0,25,30],
       borderRadius: [10,10,10,10],
       transform: [[3],[12]],
       id: 'ddl-head',

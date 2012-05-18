@@ -3,28 +3,38 @@
 }
 
 .animal .head, .animal .body { 
-	background-image: url(animal2.svg); 
+	background-image: url(sheep1.svg); 
 	background-color: transparent !important; 
 	background-repeat: no-repeat !important;  
-	background-size: 190%;
-}
-
-.animal .head {
-	width: 100px;
-	height: 100px;	
-	background-position-x: -60px;
+	background-size: 197% !important;  
 	overflow: hidden;
 	
 }
 
-.animal .body {
-	width: 200px;
-	height: 100px;
-	background-position-x: 0px;
-	overflow: hidden;
+.animal {
+	height: 48px !important; 
+	width: 71px !important; 
+	
 }
 
-.animal.cow .ddl   { background-position-y: 0px; }
-.animal.sheep .ddl { background-position-y: 100px; }
-.animal.pig  .ddl  { background-position-y: 200px; }
+.animal .head {
+	left: 35px !important; 
+	top: 0px !important; 
+	width: 42px !important;
+	height: 29px !important;
+	background-position-x: -46px;
+}
+
+.animal .body {
+	left: -82px !important; 
+	top: -35px !important; 
+	width: 58px !important; 
+	height: 36px !important; 
+	background-position-x: -5px;
+}
+
+.animal.sheep1 .ddl   { background-image: url(sheep1.svg); }
+.animal.sheep2 .ddl   { background-image: url(sheep2.svg); }
+.animal.cow .ddl   { background-image: url(cow.svg); }
+.animal.pig .ddl   { background-image: url(pig.svg); }
 

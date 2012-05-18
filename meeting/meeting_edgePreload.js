@@ -43,7 +43,7 @@ function onDocLoaded(){window.AdobeEdge.loaded=!0;fnCycle({event:"begin"});isCap
     { load: "edge_includes/jquery.easing.1.3.js"},
     { load: "edge_includes/edge.0.1.5.min.js"},
         {test: !hasJSON, yep:"edge_includes/json2_min.js"},
-          { load: "meeting_edge.js"},
+          { load: "meeting_edge_source.js"},
           { load: "meeting_edgeActions.js"},
           { load: "main.js"}], doDelayLoad);
 
