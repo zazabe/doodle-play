@@ -25,12 +25,12 @@ Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 2463, function(
 
 
 
-
+Default Timeline
 
 
 })("stage");
 //Edge symbol end:'stage'
-
+arguments
 //=========================================================
 
 //Edge symbol: 'doodle-animal'
@@ -44,7 +44,7 @@ sym.play(1);
 
 Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 0, function(sym, e) {
 sym.stop();
-
+Default TimelineDefault Timeline
 var timeout = Math.floor(Math.random()*1000);
 
 setTimeout(function(sym){
