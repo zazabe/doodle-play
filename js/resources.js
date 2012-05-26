@@ -7,16 +7,16 @@ lib.setup({
 	scenes: {
 		background: ['blank', 'landscape'],
 		symbols: {
-			basic: {
+			announcement: {
 				doodles: {
 					speaker: {
 						type: 'human'
-					}
+					},
+					message: {
+                       type: 'bubble'
+                    }
 				},
-                message: {
-                   type: 'bubble'
-                },
-				symbol: null
+                symbol: null
 			},
 			meeting: {
 				doodles: {
@@ -38,27 +38,29 @@ lib.setup({
 		parts: {
 			head: {
 				type: ['pig', 'cow', 'sheep', 'girl'],
-				size: { width: 200, height: 200}
+				size: { width: 400, height: 400 }
 			},
 			face: {
-				type: ['happy', 'sad'],
-				size: { width: 100, height: 100}
-			}
-		},
+				type: ['default'],
+				size: { width: 200, height: 200 }
+			},
+			text: {}
+        },
 		symbols: {
 			animal: {
 				type: ['pig', 'sheep', 'cow'],
 				part: ['head', 'face'],
-				size: { width: 150, height: 100}
+				size: { width: 400, height: 600 }
 			},
 			human: {
 				type: ['girl'],
 				part: ['head', 'face'],
-                size: { width: 200, height: 100}
+                size: { width: 400, height: 400 }
 			},
-			text: {
-                type: ['bubble'],
-                size: { width: 200, height: 100}
+			bubble: {
+                type: ['speaking'],
+                part: ['text'],
+                size: { width: 200, height: 100 }
             }
 		}
 	}

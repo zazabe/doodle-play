@@ -41,6 +41,11 @@ var Scene = function(name, config){
     
     this.objectType = 'scene';
     this.doodles = config.doodles;
+    
+    //TODO: refactoring: create a SceneInstance object to customize the scene, parameters below are not set in Scene object normally 
+    this.config = {
+        background: null
+    };
 };  
 
 
@@ -48,9 +53,10 @@ Scene.extend(util.Symbol, {
     
     forEachDoodles: function(func){
         for(var name in this.doodles){
-            func.apply(this, [this.doodles[name], name, this.doodles[name].type]);
+            func.apply(this, [this.doodles[name], name, this.doodles[name].type || null]);
         }
     },
+    
     
     getDoodleDefinitionFor: function(doodleType){
         var doodleName = null;
@@ -60,16 +66,16 @@ Scene.extend(util.Symbol, {
         return doodleName;
     },
     
-    setDoodleConfig: function(name, config){
+    setDoodles: function(name, config){
         var doodle = lib.Doodles.get(config.type);
-        doodle.configure(config);
-        this.doodles[name] = doodle;
+        this.doodles[name] = doodle.getInstance(config);
     },
     
     getSymbols: function(){
         var symbols = {}, instances = null, id = null;
-        console.dir(this.parent);
+        
         symbols = this.parent.prototype.getSymbols.call(this);
+        
         for(var name in symbols){
             instances = symbols[name].content.symbolInstances;
             if(instances){
@@ -81,6 +87,7 @@ Scene.extend(util.Symbol, {
                 }    
             }
         }
+        
         this.forEachDoodles(function(doodle){
             var doodleSymbols = doodle.getSymbols();
             for(var name in doodleSymbols){
@@ -89,6 +96,22 @@ Scene.extend(util.Symbol, {
         });
         
         return symbols; 
+    },
+    
+    //TODO: refactoring: create a SceneInstance object to customize the scene, methods below are not set in Scene object normally 
+    define: function(config){
+        this.config = {
+            background: config.background
+        };
+    },
+    
+    setBackground: function(){
+        $('#Stage').css({
+            backgroundImage: 'url(' + lib.path + 'scene/background/' + this.config.background + '.svg)',
+            backgroundPositionX: '0px',
+            backgroundPositionY: '0px',
+            backgroundRepeat:    'no-repeat'
+        });
     }
    
 });

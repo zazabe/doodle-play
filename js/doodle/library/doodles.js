@@ -40,9 +40,11 @@ Doodles.prototype = {
 	}
 };
 
+
+/**
+ * Doodle library item
+ */
 var Doodle = function(name, config, doodles){
-    console.log(name, config);
-    
     this.parent.apply(this, [name]);
 	
 	this.objectType = 'doodle';
@@ -50,36 +52,112 @@ var Doodle = function(name, config, doodles){
 	this.config = config;
 	this.parts = {};
 	
-	this.type =  null;
-	
 	this.setParts();
 };
 
 Doodle.extend(util.Symbol, {
+    
     setParts: function(){
         var partName = null, part = null;
-        console.log(this.config.part);
+        /* default part */
+        this.parts = {    
+            body: {
+                type: this.config.type,
+                size: this.config.size
+            }
+        };
+
+        /* additional parts */
         for(var index in (this.config.part || [])){
             partName = this.config.part[index];
             if(part = this.doodles.getParts(partName)){
+                console.log('setParts', partName, this.doodles.getParts(partName));
                 this.parts[partName] = part;
             }
         }
     },
     
-    configure: function(config){
-        console.log(config);
-        this.type = config.type;
-    },
-    
-    applyStyles: function(){
-        
+    getInstance: function(config){
+        var doodle = new DoodleInstance(this);
+        doodle.define(config);
+        return doodle;
     }
 });
 
 
+var DoodleInstance = function(doodle){
+    this.parent.apply(this, [doodle.name]);
+    
+    this.doodle = doodle;
+    this.objectType = 'doodle';
+    this.config = this.doodle.config;
+    this.parts = this.doodle.parts;
+
+    this.state = DoodleInstance.UNSET;
+    this.type = null;
+    
+};
+
+DoodleInstance.UNSET   = 0;
+DoodleInstance.SYMBOL  = 1;
+DoodleInstance.DEFINED = 2;
+
+DoodleInstance.extend(util.Symbol, {
+    define: function(config){
+        this.type = config.type;
+        this.config = config;
+        
+    },
+    
+    setSymbols: function(symbols){
+        this.symbols = symbols;
+        this.element = $(this.symbols.element[0]);
+        for(var name in this.parts){
+            this.parts[name].element = $('div[id*=' + name + ']', this.element);
+        }
+        
+        this.state = DoodleInstance.SYMBOL;
+    },
+    
+    
+    applyStyles: function(){
+        if(this.state < DoodleInstance.SYMBOL){
+            throw new Error('doodle instance is not ready yet');
+        }
+        
+        var folder = null, part = null, conf = null; 
+        
+        for(var name in this.parts){
+            part = this.parts[name];
+            conf = this.config[name];
+            
+            if(name == 'text' && conf){
+                part.element.html(conf.text);
+                part.element.css({
+                   fontFamily: conf.font
+                });
+            }
+            else {
+                folder = name == 'body' ? this.type : name;
+                part.element.css({
+                    backgroundImage:     'url(' + lib.path + 'doodle/' + folder + '/' + conf.name + '.svg )',
+                    backgroundPositionX: -(part.size.width * conf.index) + 'px',
+                    backgroundPositionY: '0px',
+                    backgroundRepeat:    'no-repeat',
+                    width:               conf.width,
+                    height:              conf.height
+                });    
+            }
+        }
+        
+        this.state = DoodleInstance.DEFINED;
+    }    
+});
+
+
+
 lib.setupDoodles = function(definition){
- this.Doodles = new Doodles(definition);
+    this.Doodles = new Doodles(definition);
 };
 	
 

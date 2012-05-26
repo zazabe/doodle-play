@@ -8,3 +8,23 @@ body {
     border: 3px solid black;
 }
 
+.btn.settings {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.modal {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+
+@font-face { font-family: markerfelt; src: url('fonts/markerfeltnormal.ttf'); } 

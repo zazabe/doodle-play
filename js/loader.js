@@ -46,15 +46,21 @@ loadResources([
 	{test: !hasJSON, yep:"js/edge/json2_min.js"},
 	
 	/*doodle play*/
-	{ load: "js/doodle/core.js"},
 	{ load: "js/doodle/util/extend.js"},
-    { load: "js/doodle/util/symbol.js"},
+    { load: "js/doodle/core.js"},
+	{ load: "js/doodle/util/symbol.js"},
 	{ load: "js/doodle/library/doodles.js"},
 	{ load: "js/doodle/library/scenes.js"},
 
+
+    /*twitter bootstrap*/
+    { load: "bootstrap/js/bootstrap-modal.js"},
+
 	/*start*/
 	{ load: "js/resources.js"},
-	{ load: "js/main.js"}
+	{ load: "js/main.js"},
+    { load: "js/editor.js"}
+    
 ], doDelayLoad);
 
 

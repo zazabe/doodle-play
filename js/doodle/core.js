@@ -12,15 +12,15 @@ var DoodlePlay = $.DoodlePlay = {
 		}
 		
 		this.scene = this.Library.Scenes.get(config.scene);
+		this.scene.define(config);
+		
 		this.scene.forEachDoodles(function(doodleDef, doodleName){
-		    console.log(doodleDef, doodleName, config.doodles[doodleName]);
 			if(config.doodles[doodleName]){
-				this.setDoodleConfig(doodleName, config.doodles[doodleName]);
+				this.setDoodles(doodleName, config.doodles[doodleName]);
 			}
 		});
 		
 		var symbols = this.scene.getSymbols();
-		console.log(symbols);
 	    Edge.registerCompositionReadyHandler( 'doodleplay', function(){
             DoodlePlay.edgeReady.apply(DoodlePlay, [Edge]);
 	    });
@@ -33,9 +33,12 @@ var DoodlePlay = $.DoodlePlay = {
 	    this.scene.forEachDoodles(function(doodle){
 	        var symbols = null;
 	        if(symbols = composition.getSymbols(doodle.name)){
-                doodle.symbols = symbols[0];
+	            doodle.setSymbols(symbols[0]);
 	        }
-	        doodle.applyStyles();
+	        
+	        this.setBackground();
+            doodle.applyStyles();
+	        
 	        DoodlePlay.State.changeState('ready');
 	    });
 	},

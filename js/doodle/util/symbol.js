@@ -13,8 +13,6 @@ Symbol.prototype = {
 	    
 		var symbols = this.symbols, name = this.name;
 		
-		console.log(symbols, name, lib.path + this.objectType + '/' + this.name + '.js');
-		
 		if(!symbols){
             $.ajax({
                 async: false,
