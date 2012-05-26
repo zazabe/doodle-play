@@ -1,23 +1,31 @@
-/********************** Doodle Play: Basic objects *********************/
+/********************** Doodle Play: Symbol *********************/
 (function($, lib, util){
 
 
 var Symbol = function(name){
 	this.name = name;
+	this.symbols = null;
+	this.objectType = '';
 };	
 
 Symbol.prototype = {
-	getSymbol: function(){
-		var symbol = null, name = this.name;
-		$.ajax({
-			async: false,
-			url: lib.path + 'doodles/' + this.name + '.js',
-			dataType: 'script',
-			success: function(result, status, request){
-				symbol = data[name];
-			}
-		});
-		return symbol;
+	getSymbols: function(){
+	    
+		var symbols = this.symbols, name = this.name;
+		
+		console.log(symbols, name, lib.path + this.objectType + '/' + this.name + '.js');
+		
+		if(!symbols){
+            $.ajax({
+                async: false,
+                url: lib.path + this.objectType + '/' + this.name + '.js',
+                dataType: 'script',
+                success: function(result, status, request){
+                    symbols = data;
+                }
+            });
+		}
+		return symbols;
 	}	
 };
 

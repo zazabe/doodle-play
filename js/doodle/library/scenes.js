@@ -5,22 +5,22 @@ var Scenes = function(definition){
 	this.scenes = {};
 
 	this.background = definition.background;
-	this.createScenes(definition.symbols);
+	this.create(definition.symbols);
 };  
 
 Scenes.prototype = {
 	
-	createScenes: function(scenes){
+	create: function(scenes){
 		for(var name in scenes){
-			this.scenes[name] = new Scene(scenes[name]);
+			this.scenes[name] = new Scene(name, scenes[name]);
 		}
 	},	
 		
-	getScene: function(name){
+	get: function(name){
 		return this.scenes[name];
 	},
 	
-	getSceneNames: function(){
+	getNames: function(){
 		var names = [];
 		for(var name in this.scenes){
 			names.push(name);
@@ -36,13 +36,62 @@ Scenes.prototype = {
 	}
 };
 
-var Scene = function(config){
-	this.doodles = config.doodles;
+var Scene = function(name, config){
+    this.parent.apply(this, [name]);
+    
+    this.objectType = 'scene';
+    this.doodles = config.doodles;
 };  
 
-Scene.prototype = new util.Symbol();
-Scene.prototype.constructor = Scene;
 
+Scene.extend(util.Symbol, {
+    
+    forEachDoodles: function(func){
+        for(var name in this.doodles){
+            func.apply(this, [this.doodles[name], name, this.doodles[name].type]);
+        }
+    },
+    
+    getDoodleDefinitionFor: function(doodleType){
+        var doodleName = null;
+        this.forEachDoodles(function(doodle, type){
+            doodleName = type == doodleType ? doodle.name : doodleName;
+        });
+        return doodleName;
+    },
+    
+    setDoodleConfig: function(name, config){
+        var doodle = lib.Doodles.get(config.type);
+        doodle.configure(config);
+        this.doodles[name] = doodle;
+    },
+    
+    getSymbols: function(){
+        var symbols = {}, instances = null, id = null;
+        console.dir(this.parent);
+        symbols = this.parent.prototype.getSymbols.call(this);
+        for(var name in symbols){
+            instances = symbols[name].content.symbolInstances;
+            if(instances){
+                for(var index in instances){
+                    id = instances[index].id;
+                    if(symbolName = this.getDoodleDefinitionFor(id)){
+                        instances[index].symbolName = symbolName; 
+                    }
+                }    
+            }
+        }
+        this.forEachDoodles(function(doodle){
+            var doodleSymbols = doodle.getSymbols();
+            for(var name in doodleSymbols){
+                symbols[name] = doodleSymbols[name]; 
+            }
+        });
+        
+        return symbols; 
+    }
+   
+});
 
 lib.setupScenes = function(definition){
 	this.Scenes = new Scenes(definition);

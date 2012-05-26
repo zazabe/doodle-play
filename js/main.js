@@ -5,11 +5,20 @@ var defaultScene = {
 	scene: 'basic',
 	background: 'blank',
 	doodles: {
-		main: {
-			type: 'human',
-			head: 'girl',
-			face: 'happy',
-			body: 'girl'
+		speaker: {
+			type: 'animal',
+			head: {
+                name:  'pig',
+			    index: 0
+            },
+			face: {
+                name:  'basic',
+                index: 0
+            },
+			body: {
+                name:  'pig',
+                index: 0
+            }
 		},
 		message: {
 			text: 'I love my doodle !'
@@ -17,9 +26,14 @@ var defaultScene = {
 	}
 };
 
-doodlePlay.State.ready(function(){
+doodlePlay.State.load(function(){
 	this.create(defaultScene);
 });
+
+doodlePlay.State.ready(function(){
+    console.log('ready');
+});
+
 
 
 })($.DoodlePlay)

@@ -5,21 +5,21 @@ var Doodles = function(definition){
 	this.doodles = {};
 
 	this.parts = definition.parts;
-	this.createDoodles(definition.symbols);
+	this.create(definition.symbols);
 };	
 
 Doodles.prototype = {
-	createDoodles: function(doodles){
-		for(var name in doodles){
-			this.doodles[name] = new Doodle(name, doodles[name]);
+	create: function(config){
+	    for(var name in config){
+		    this.doodles[name] = new Doodle(name, config[name], this);
 		}
 	},
 	
-	getDoodle: function(name){
+	get: function(name){
 		return this.doodles[name];
 	},
 	
-	getDoodleNames: function(){
+	getNames: function(){
 		var names = [];
 		for(var name in this.doodles){
 			names.push(name);
@@ -33,16 +33,49 @@ Doodles.prototype = {
 	
 	getFaceStyles: function(){
 		return this.parts.face;
+	},
+	
+	getParts: function(name){
+	    return this.parts[name];
 	}
 };
 
-var Doodle = function(name, config){
-	util.Symbol.apply(this, [name]);
+var Doodle = function(name, config, doodles){
+    console.log(name, config);
+    
+    this.parent.apply(this, [name]);
+	
+	this.objectType = 'doodle';
+    this.doodles = doodles;
 	this.config = config;
+	this.parts = {};
+	
+	this.type =  null;
+	
+	this.setParts();
 };
 
-Doodle.prototype = new util.Symbol();
-Doodle.prototype.constructor = Doodle;
+Doodle.extend(util.Symbol, {
+    setParts: function(){
+        var partName = null, part = null;
+        console.log(this.config.part);
+        for(var index in (this.config.part || [])){
+            partName = this.config.part[index];
+            if(part = this.doodles.getParts(partName)){
+                this.parts[partName] = part;
+            }
+        }
+    },
+    
+    configure: function(config){
+        console.log(config);
+        this.type = config.type;
+    },
+    
+    applyStyles: function(){
+        
+    }
+});
 
 
 lib.setupDoodles = function(definition){

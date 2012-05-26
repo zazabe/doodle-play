@@ -47,7 +47,8 @@ loadResources([
 	
 	/*doodle play*/
 	{ load: "js/doodle/core.js"},
-	{ load: "js/doodle/util/symbol.js"},
+	{ load: "js/doodle/util/extend.js"},
+    { load: "js/doodle/util/symbol.js"},
 	{ load: "js/doodle/library/doodles.js"},
 	{ load: "js/doodle/library/scenes.js"},
 

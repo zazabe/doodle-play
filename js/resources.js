@@ -13,16 +13,22 @@ lib.setup({
 						type: 'human'
 					}
 				},
+                message: {
+                   type: 'bubble'
+                },
 				symbol: null
 			},
 			meeting: {
 				doodles: {
 					speaker: {
-						type: 'animal'
+						type:  'animal'
 					},
 					watcher: {
 						type: 'animal'
-					}
+					},
+					message: {
+					   type: 'bubble'
+                    }
 				},
 				symbol: null
 			}
@@ -42,14 +48,18 @@ lib.setup({
 		symbols: {
 			animal: {
 				type: ['pig', 'sheep', 'cow'],
-				size: { width: 150, height: 100},
-				symbol: null
+				part: ['head', 'face'],
+				size: { width: 150, height: 100}
 			},
 			human: {
 				type: ['girl'],
-				size: { width: 200, height: 100},
-				symbol: null
-			}
+				part: ['head', 'face'],
+                size: { width: 200, height: 100}
+			},
+			text: {
+                type: ['bubble'],
+                size: { width: 200, height: 100}
+            }
 		}
 	}
 
