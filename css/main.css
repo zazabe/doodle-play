@@ -13,11 +13,11 @@ body {
     top: 20px;
     left: 20px;
 }
-
+/*
 .modal {
     display: none;
 }
-
+*/
 .hidden {
     display: none;
 }
@@ -26,5 +26,35 @@ body {
     display: block;
 }
 
+.part-label {
+    float: left;
+    width: 40px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.doodle-fields {
+    margin: 15px;
+}
+
+.index {
+    vertical-align: sub;
+}
+
+.decrease, .increase {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    text-indent: -1000px;
+    overflow: hidden;
+}
+
+.decrease {
+    background: url(../images/prev.png) no-repeat;
+}
+
+.increase {
+    background: url(../images/next.png) no-repeat;
+}
 
 @font-face { font-family: markerfelt; src: url('fonts/markerfeltnormal.ttf'); } 

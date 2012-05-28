@@ -11,15 +11,18 @@ var Symbol = function(name){
 Symbol.prototype = {
 	getSymbols: function(){
 	    
-		var symbols = this.symbols, name = this.name;
+		var symbols = this.symbols, name = this.name, url = lib.path + this.objectType + '/' + this.name + '.js';
 		
 		if(!symbols){
             $.ajax({
                 async: false,
-                url: lib.path + this.objectType + '/' + this.name + '.js',
+                url: url,
                 dataType: 'script',
                 success: function(result, status, request){
                     symbols = data;
+                },
+                error: function(result, status, request){
+                    throw new Error('can\'t get ' + url);
                 }
             });
 		}

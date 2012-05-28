@@ -5,7 +5,7 @@
 		<title>Doodle Play</title>
 	
 		<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="js/vendor/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
 		
    
 	    <script type="text/javascript" charset="utf-8" src="js/loader.js"></script>
@@ -13,106 +13,97 @@
 	<body>
 		<div id="Stage" class="doodleplay"></div>
 		
-		<a class="btn settings" data-toggle="modal" href="#myModal" >Setting</a>
 		
-		
-		<div class="modal" id="settings">
-          <div class="modal-header">
-            <button class="close" data-dismiss="modal">×</button>
-            <h3>Settings</h3>
-          </div>
-          <div class="modal-body">
-          
-                  <form class="form-horizontal">
-                    <fieldset>
-                      
-                      <div class="control-group">
-                        <label for="scene" class="control-label">Message</label>
-                        <div class="controls">
-                            <select id="scene" class="span3">
-                                <option>announcement</option>
-                                <option>meeting</option>
-                            </select>
-                          </div>
-                      </div>
-                      
-                      <div id="annonce" class="panel visible">
-                            <div class="control-group">
-                                <label for="text" class="control-label">Text</label>
-                                <div class="controls">
-                                    <input type="text" id="announcementText" class="span3" />
-                                </div>
-                            </div>
-                            
-                            <div class="control-group">
-                                <label for="background" class="control-label">Background</label>
-                                <div class="controls">
-                                    <select id="announcementBackground" class="span3">
-                                        <option>background 1</option>
-                                        <option>background 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="control-group">
-                                <label for="announcementSpeaker" class="control-label">Speaker</label>
-                                <div class="controls">
-                                    <select id="annouceSpeaker" class="span3">
-                                        <option>animal</option>
-                                        <option>human</option>
-                                    </select>
-                                </div>
-                            </div>
-                      </div>
-                      
-                      <div id="meeting" class="panel hidden">
-                            <div class="control-group">
-                                <label for="text" class="control-label">Text</label>
-                                <div class="controls">
-                                    <input type="text" id="meetingText" class="span3" />
-                                </div>
-                            </div>
+		<div id="doodleUI">
+            <a class="btn settings" data-toggle="modal" href="#myModal" >Setting</a>
+            <div id="doodleSettings"></div>
+
+
+            <script id="modal" type="mustache/template">
+                <div class="modal" id="settings">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                            <h3>Settings</h3>
+                        </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                {{&select}}
+                                
+                                {{&panels}}
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary apply">Apply</a>
+                        <a href="#" class="btn close">Close</a>
+                    </div>
+                </div>
+            </script>
+            
+            
+            <script id="panel" type="mustache/template">
+                <div id="{{name}}" class="panels {{status}}">{{&fields}}</div>
+            </script>
+            
+            
+            <script id="doodleFields" type="mustache/template">
+                <div class="control-group">
+                    <label for="text" class="control-label">{{label}}</label>
+                    <div class="controls">
+                        {{&select}}
+                        <div>
+                        {{&fields}}
+                        </div>
+                    </div>
+                </div>
+            </script>
+            
+            <script id="doodleField" type="mustache/template">
+                <label for="text" class="part-label">{{label}}</label>
+                <div id="{{id}}" class="doodle-fields">
+                        {{&field}}
+                </div>
+            </script>
+            
+            <script id="doodleSelect" type="mustache/template">
+                <select id="{{id}}" class="span{{level}}">
+                    {{#options}}
+                    <option value="{{value}}">{{name}}</option>
+                    {{/options}}
+                </select>
+                <a href="#" class="decrease">-</a>
+                <span class="index">0</span>
+                <a href="#" class="increase">+</a>
                 
-                            <div class="control-group">
-                                <label for="meetingBackground" class="control-label">Background</label>
-                                <div class="controls">
-                                    <select id="background" class="span3">
-                                        <option>background 1</option>
-                                        <option>background 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                      
-                            <div class="control-group">
-                                <label for="meetingSpeaker" class="control-label">Speaker</label>
-                                <div class="controls">
-                                    <select id="meetingSpeaker" class="span3">
-                                        <option>animal</option>
-                                        <option>human</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="control-group">
-                                <label for="meetingWatcher" class="control-label">Watcher</label>
-                                <div class="controls">
-                                    <select id="meetingWatcher" class="span3">
-                                        <option>animal</option>
-                                        <option>human</option>
-                                    </select>
-                                </div>
-                            </div>
-                      </div>
-                      
-                  </fieldset>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <a href="#" class="btn btn-primary apply">Apply</a>
-            <a href="#" class="btn close">Close</a>
-          </div>
+                
+            </script>
+            
+            
+            <script id="field" type="mustache/template">
+                <div class="control-group">
+                    <label for="text" class="control-label">{{label}}</label>
+                    <div class="controls">
+                        {{&field}}
+                    </div>
+                </div>
+            </script>
+            
+            
+            <script id="inputtext" type="mustache/template">
+                <input type="text" value="{{options}}" id="{{id}}" class="span{{level}}" />
+            </script>
+            
+            
+            <script id="select" type="mustache/template">
+                <select id="{{id}}" class="span{{level}}">
+                    {{#options}}
+                    <option value="{{value}}">{{name}}</option>
+                    {{/options}}
+                </select>
+            </script>
+
         </div>
-        
         
 	</body>
 </html>

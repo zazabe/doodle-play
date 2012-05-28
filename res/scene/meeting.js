@@ -1,281 +1,157 @@
-var symbols = {
-	"stage": {
-	   version: "0.1.5",
-	   build: "0.9.0.113",
-	   baseState: "Base State",
-	   initialState: "Base State",
-	   gpuAccelerate: true,
-	   content: {
-	         dom: [
-	         {
-	            id:'scene',
-	            type:'rect',
-	            rect:[-249,203,0,0]
-	         }],
-	         symbolInstances: [
-	         {
-	            id:'scene',
-	            symbolName:'scene'
-	         }
-	         ]
-	      },
-	   states: {
-	      "Base State": {
-	         "${_Stage}": [
-	            ["color", "background-color", 'rgba(255,255,255,1)'],
-	            ["style", "height", '400px'],
-	            ["style", "width", '550px']
-	         ],
-	         "${_RoundRect}": [
-	            ["style", "border-top-left-radius", [0,0], {valueTemplate:'@@0@@px @@1@@px'} ]
-	         ],
-	         "${_scene}": [
-	            ["transform", "scaleX", '1'],
-	            ["transform", "translateY", '0px'],
-	            ["transform", "scaleY", '1'],
-	            ["transform", "translateX", '0px']
-	         ],
-	         "body": [
-	            ["color", "background-color", 'rgba(0,0,0,0)']
-	         ]
-	      }
-	   },
-	   timelines: {
-	      "Default Timeline": {
-	         fromState: "Base State",
-	         toState: "",
-	         duration: 9000,
-	         autoPlay: true,
-	         labels: {
-	
-	         },
-	         timeline: [
-	            { id: "eid168", tween: [ "style", "${_RoundRect}", "border-top-left-radius", [0,0], { valueTemplate: '@@0@@px @@1@@px', fromValue: [0,0]}], position: 0, duration: 0 },
-	            { id: "eid201", tween: [ "transform", "${_scene}", "translateY", '276px', { fromValue: '0px'}], position: 5250, duration: 3750, easing: "easeInOutQuad" },
-	            { id: "eid200", tween: [ "transform", "${_scene}", "translateX", '2px', { fromValue: '0px'}], position: 5250, duration: 3750, easing: "easeInOutQuad" },
-	            { id: "eid199", tween: [ "transform", "${_scene}", "scaleY", '2.68', { fromValue: '1'}], position: 5250, duration: 3750, easing: "easeInOutQuad" },
-	            { id: "eid198", tween: [ "transform", "${_scene}", "scaleX", '2.68', { fromValue: '1'}], position: 5250, duration: 3750, easing: "easeInOutQuad" }         ]
-	      }
-	   }
-	},
-	"watcherLeft": {
-	   version: "0.1.5",
-	   build: "0.9.0.113",
-	   baseState: "Base State",
-	   initialState: "Base State",
-	   gpuAccelerate: true,
-	   content: {
-	   dom: [
-	   {
-	      id: 'watcher_4',
-	      type: 'rect',
-	      rect: [351,-18,0,0]
-	   },
-	   {
-	      id: 'watcher_3',
-	      type: 'rect',
-	      rect: [351,-18,0,0]
-	   },
-	   {
-	      id: 'watcher_2',
-	      type: 'rect',
-	      rect: [351,-18,0,0]
-	   },
-	   {
-	      id: 'watcher_1',
-	      type: 'rect',
-	      rect: [351,-18,0,0]
-	   }],
-	   symbolInstances: [
-	   {
-	      id: 'watcher_3',
-	      symbolName: 'watcher'
-	   },
-	   {
-	      id: 'watcher_1',
-	      symbolName: 'watcher'
-	   },
-	   {
-	      id: 'watcher_4',
-	      symbolName: 'watcher'
-	   },
-	   {
-	      id: 'watcher_2',
-	      symbolName: 'watcher'
-	   }   ]
-	   },
-	   states: {
-	      "Base State": {
-	         "${_watcher_4}": [
-	            ["transform", "scaleX", '0.707'],
-	            ["transform", "translateY", '9.376px'],
-	            ["transform", "translateX", '-251.522px'],
-	            ["transform", "scaleY", '0.707']
-	         ],
-	         "${symbolSelector}": [
-	            ["style", "height", '163.695999px'],
-	            ["style", "width", '155.509987px']
-	         ],
-	         "${_watcher_2}": [
-	            ["transform", "scaleX", '1.203'],
-	            ["transform", "translateY", '47.496px'],
-	            ["transform", "translateX", '-328.402px'],
-	            ["transform", "scaleY", '1.203']
-	         ],
-	         "${_watcher_3}": [
-	            ["transform", "translateX", '-270px'],
-	            ["transform", "translateY", '26px']
-	         ],
-	         "${_watcher_1}": [
-	            ["transform", "scaleX", '1.507'],
-	            ["transform", "translateY", '116.224px'],
-	            ["transform", "translateX", '-300.477px'],
-	            ["transform", "scaleY", '1.507']
-	         ]
-	      }
-	   },
-	   timelines: {
-	      "Default Timeline": {
-	         fromState: "Base State",
-	         toState: "",
-	         duration: 4000,
-	         autoPlay: true,
-	         labels: {
-	
-	         },
-	         timeline: [
-	            { id: "eid120", tween: [ "transform", "${_watcher_1}", "translateY", '93.776px', { fromValue: '116.224px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid114", tween: [ "transform", "${_watcher_4}", "translateY", '3.375px', { fromValue: '9.376px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid116", tween: [ "transform", "${_watcher_3}", "translateY", '22px', { fromValue: '26px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid113", tween: [ "transform", "${_watcher_4}", "translateX", '29.477px', { fromValue: '-251.522px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid117", tween: [ "transform", "${_watcher_2}", "translateX", '19.597px', { fromValue: '-328.402px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid118", tween: [ "transform", "${_watcher_2}", "translateY", '54.495px', { fromValue: '47.496px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid115", tween: [ "transform", "${_watcher_3}", "translateX", '52px', { fromValue: '-270px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" },
-	            { id: "eid119", tween: [ "transform", "${_watcher_1}", "translateX", '78.477px', { fromValue: '-300.477px'}], position: 1500, duration: 2500, easing: "easeInOutQuad" }         ]
-	      }
-	   }
-	},
-	"scene": {
-	   version: "0.1.5",
-	   build: "0.9.0.113",
-	   baseState: "Base State",
-	   initialState: "Base State",
-	   gpuAccelerate: true,
-	   content: {
-	   dom: [
-	   {
-	      rect: [209,45,590,152],
-	      id: 'bg',
-	      stroke: [0,'rgb(0, 0, 0)','none'],
-	      type: 'rect',
-	      fill: ['rgba(137,138,87,1)']
-	   },
-	   {
-	      rect: [409,12,267,47],
-	      borderRadius: ['0px 0px',0,0,0],
-	      id: 'box',
-	      stroke: [0,'rgb(0, 0, 0)','none'],
-	      type: 'rect',
-	      fill: ['rgba(90,89,80,1)']
-	   },
-	   {
-	      id: 'watcherLeft',
-	      type: 'rect',
-	      rect: [40,41,0,0]
-	   },
-	   {
-	      id: 'watcherRight',
-	      type: 'rect',
-	      rect: [41,41,0,0]
-	   },
-	   {
-	      id: 'speaker',
-	      type: 'rect',
-	      rect: [133,-109,0,0]
-	   }],
-	   symbolInstances: [
-	   {
-	      id: 'watcherRight',
-	      symbolName: 'watcherLeft'
-	   },
-	   {
-	      id: 'speaker',
-	      symbolName: 'watcher'
-	   },
-	   {
-	      id: 'watcherLeft',
-	      symbolName: 'watcherLeft'
-	   }   ]
-	   },
-	   states: {
-	      "Base State": {
-	         "${_bg}": [
-	            ["color", "background-color", 'rgba(87,161,4,1.00)'],
-	            ["transform", "translateX", '40px'],
-	            ["style", "height", '152px'],
-	            ["transform", "translateY", '0px'],
-	            ["style", "width", '550px']
-	         ],
-	         "${_speaker}": [
-	            ["transform", "translateX", '34px'],
-	            ["transform", "translateY", '109px'],
-	            ["transform", "rotateZ", '0deg']
-	         ],
-	         "${symbolSelector}": [
-	            ["style", "height", '216px'],
-	            ["style", "width", '1070px']
-	         ],
-	         "${_watcherRight}": [
-	            ["transform", "scaleX", '-1'],
-	            ["transform", "translateY", '0px'],
-	            ["transform", "translateX", '875px']
-	         ],
-	         "${_watcherLeft}": [
-	            ["transform", "translateX", '-41px'],
-	            ["transform", "translateY", '12px']
-	         ],
-	         "${_box}": [
-	            ["style", "border-bottom-left-radius", [0,0], {valueTemplate:'@@0@@px @@1@@px'} ],
-	            ["transform", "translateX", '-10px'],
-	            ["style", "border-bottom-right-radius", [0,0], {valueTemplate:'@@0@@px @@1@@px'} ],
-	            ["style", "border-top-left-radius", [123,123], {valueTemplate:'@@0@@px @@1@@px'} ],
-	            ["style", "border-top-right-radius", [0,0], {valueTemplate:'@@0@@px @@1@@px'} ],
-	            ["transform", "translateY", '5px']
-	         ]
-	      }
-	   },
-	   timelines: {
-	      "Default Timeline": {
-	         fromState: "Base State",
-	         toState: "",
-	         duration: 2000,
-	         autoPlay: true,
-	         labels: {
-	
-	         },
-	         timeline: [
-	            { id: "eid176", tween: [ "transform", "${_box}", "translateX", '-10px', { fromValue: '-10px'}], position: 0, duration: 0 },
-	            { id: "eid155", tween: [ "transform", "${_watcherLeft}", "translateX", '-41px', { fromValue: '-41px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid127", tween: [ "color", "${_bg}", "background-color", 'rgba(87,161,4,1.00)', { animationColorSpace: 'RGB', valueTemplate: undefined, fromValue: 'rgba(87,161,4,1.00)'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid129", tween: [ "style", "${_bg}", "width", '550px', { fromValue: '550px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid177", tween: [ "transform", "${_box}", "translateY", '5px', { fromValue: '5px'}], position: 0, duration: 0 },
-	            { id: "eid149", tween: [ "transform", "${_watcherRight}", "translateX", '875px', { fromValue: '875px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid156", tween: [ "transform", "${_watcherLeft}", "translateY", '12px', { fromValue: '12px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid191", tween: [ "transform", "${_speaker}", "rotateZ", '-34deg', { fromValue: '0deg'}], position: 1000, duration: 500, easing: "easeInOutQuad" },
-	            { id: "eid194", tween: [ "transform", "${_speaker}", "rotateZ", '0deg', { fromValue: '-34deg'}], position: 1500, duration: 500, easing: "easeInOutQuad" },
-	            { id: "eid150", tween: [ "transform", "${_watcherRight}", "translateY", '0px', { fromValue: '0px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid128", tween: [ "transform", "${_bg}", "translateX", '40px', { fromValue: '40px'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid175", tween: [ "style", "${_box}", "border-bottom-right-radius", [0,0], { valueTemplate: '@@0@@px @@1@@px', fromValue: [0,0]}], position: 0, duration: 0 },
-	            { id: "eid148", tween: [ "transform", "${_watcherRight}", "scaleX", '-1', { fromValue: '-1'}], position: 0, duration: 0, easing: "easeInOutQuad" },
-	            { id: "eid187", tween: [ "transform", "${_speaker}", "translateX", '209px', { fromValue: '34px'}], position: 0, duration: 1000, easing: "easeInOutQuad" },
-	            { id: "eid189", tween: [ "transform", "${_speaker}", "translateX", '233px', { fromValue: '209px'}], position: 1000, duration: 500, easing: "easeInOutQuad" },
-	            { id: "eid192", tween: [ "transform", "${_speaker}", "translateX", '367.337px', { fromValue: '233px'}], position: 1500, duration: 500, easing: "easeInOutQuad" },
-	            { id: "eid174", tween: [ "style", "${_box}", "border-top-right-radius", [0,0], { valueTemplate: '@@0@@px @@1@@px', fromValue: [0,0]}], position: 0, duration: 0 },
-	            { id: "eid178", tween: [ "style", "${_box}", "border-top-left-radius", [123,123], { valueTemplate: '@@0@@px @@1@@px', fromValue: [123,123]}], position: 0, duration: 0 },
-	            { id: "eid190", tween: [ "transform", "${_speaker}", "translateY", '74px', { fromValue: '109px'}], position: 0, duration: 1500, easing: "easeInOutQuad" },
-	            { id: "eid193", tween: [ "transform", "${_speaker}", "translateY", '62px', { fromValue: '74px'}], position: 1500, duration: 500, easing: "easeInOutQuad" },
-	            { id: "eid173", tween: [ "style", "${_box}", "border-bottom-left-radius", [0,0], { valueTemplate: '@@0@@px @@1@@px', fromValue: [0,0]}], position: 0, duration: 0 }         ]
-	      }
-	   }
-	}
+var data = {
+    "stage": {
+       version: "0.1.6",
+       build: "0.10.0.134",
+       baseState: "Base State",
+       initialState: "Base State",
+       gpuAccelerate: true,
+       content: {
+             dom: [
+             {
+                id:'speaker',
+                type:'rect',
+                rect:[-113,529,0,0]
+             },
+             {
+                id:'watcher2',
+                type:'rect',
+                rect:[-415,568,0,0]
+             },
+             {
+                id:'watcher1',
+                type:'rect',
+                rect:[-415,568,0,0]
+             },
+             {
+                id:'watcher3',
+                type:'rect',
+                rect:[-415,568,0,0]
+             },
+             {
+                id:'watcher4',
+                type:'rect',
+                rect:[-415,568,0,0]
+             },
+             {
+                id:'message',
+                type:'rect',
+                rect:[1316,402,0,0],
+                transform:[[-742,-465],[0,0],[0],[1,1]]
+             }],
+             symbolInstances: [
+             {
+                id:'watcher1',
+                symbolName:'watcher'
+             },
+             {
+                id:'speaker',
+                symbolName:'speaker'
+             },
+             {
+                id:'message',
+                symbolName:'message'
+             },
+             {
+                id:'watcher3',
+                symbolName:'watcher'
+             },
+             {
+                id:'watcher2',
+                symbolName:'watcher'
+             },
+             {
+                id:'watcher4',
+                symbolName:'watcher'
+             }
+             ]
+          },
+       states: {
+          "Base State": {
+             "${_watcher2}": [
+                ["transform", "translateX", '-134px'],
+                ["transform", "translateY", '-22px']
+             ],
+             "${_message}": [
+                ["style", "opacity", '0'],
+                ["transform", "translateY", '-465.99px'],
+                ["transform", "translateX", '-742px']
+             ],
+             "${_watcher1}": [
+                ["transform", "translateX", '-44px'],
+                ["transform", "translateY", '43.99px']
+             ],
+             "${_watcher4}": [
+                ["transform", "scaleX", '-1'],
+                ["transform", "translateY", '13.99px'],
+                ["transform", "translateX", '1353.99px']
+             ],
+             "${_Stage}": [
+                ["style", "height", '768px'],
+                ["color", "background-color", 'rgba(255,255,255,1)'],
+                ["style", "width", '1024px']
+             ],
+             "${_watcher3}": [
+                ["transform", "scaleX", '-1'],
+                ["transform", "translateY", '1292px'],
+                ["transform", "translateX", '215.98px']
+             ],
+             "${_speaker}": [
+                ["style", "-webkit-transform-origin", [50,100], {valueTemplate:'@@0@@% @@1@@%'} ],
+                ["style", "-moz-transform-origin", [50,100],{valueTemplate:'@@0@@% @@1@@%'}],
+                ["style", "-ms-transform-origin", [50,100],{valueTemplate:'@@0@@% @@1@@%'}],
+                ["style", "msTransformOrigin", [50,100],{valueTemplate:'@@0@@% @@1@@%'}],
+                ["style", "-o-transform-origin", [50,100],{valueTemplate:'@@0@@% @@1@@%'}],
+                ["transform", "translateY", '-292px'],
+                ["transform", "translateX", '-347.99px'],
+                ["transform", "rotateZ", '0deg']
+             ]
+          }
+       },
+       timelines: {
+          "Default Timeline": {
+             fromState: "Base State",
+             toState: "",
+             duration: 6250,
+             autoPlay: true,
+             timeline: [
+                { id: "eid26", tween: [ "transform", "${_speaker}", "rotateZ", '-22deg', { fromValue: '0deg'}], position: 3000, duration: 500 },
+                { id: "eid31", tween: [ "transform", "${_speaker}", "rotateZ", '-25deg', { fromValue: '-22deg'}], position: 3500, duration: 500 },
+                { id: "eid37", tween: [ "transform", "${_speaker}", "rotateZ", '1deg', { fromValue: '-25deg'}], position: 4000, duration: 500 },
+                { id: "eid88", tween: [ "style", "${_message}", "opacity", '0', { fromValue: '0'}], position: 0, duration: 0 },
+                { id: "eid89", tween: [ "style", "${_message}", "opacity", '1', { fromValue: '0'}], position: 5750, duration: 500 },
+                { id: "eid64", tween: [ "transform", "${_watcher2}", "translateY", '-18px', { fromValue: '-22px'}], position: 0, duration: 1500 },
+                { id: "eid77", tween: [ "transform", "${_watcher2}", "translateY", '-67.99px', { fromValue: '-18px'}], position: 1500, duration: 1000 },
+                { id: "eid83", tween: [ "transform", "${_watcher2}", "translateY", '-51.99px', { fromValue: '-67.99px'}], position: 2500, duration: 1500 },
+                { id: "eid62", tween: [ "transform", "${_watcher1}", "translateX", '558px', { fromValue: '-44px'}], position: 0, duration: 1500 },
+                { id: "eid70", tween: [ "transform", "${_watcher1}", "translateX", '588px', { fromValue: '558px'}], position: 1500, duration: 1000 },
+                { id: "eid80", tween: [ "transform", "${_watcher1}", "translateX", '580px', { fromValue: '588px'}], position: 2500, duration: 1500 },
+                { id: "eid65", tween: [ "transform", "${_watcher2}", "translateX", '195.99px', { fromValue: '-134px'}], position: 0, duration: 1500 },
+                { id: "eid76", tween: [ "transform", "${_watcher2}", "translateX", '285.99px', { fromValue: '195.99px'}], position: 1500, duration: 1000 },
+                { id: "eid82", tween: [ "transform", "${_watcher2}", "translateX", '311.98px', { fromValue: '285.99px'}], position: 2500, duration: 1500 },
+                { id: "eid25", tween: [ "transform", "${_speaker}", "translateY", '-280px', { fromValue: '-292px'}], position: 1000, duration: 2000 },
+                { id: "eid28", tween: [ "transform", "${_speaker}", "translateY", '-356px', { fromValue: '-280px'}], position: 3000, duration: 500 },
+                { id: "eid30", tween: [ "transform", "${_speaker}", "translateY", '-413.99px', { fromValue: '-356px'}], position: 3500, duration: 500 },
+                { id: "eid36", tween: [ "transform", "${_speaker}", "translateY", '-437.99px', { fromValue: '-413.99px'}], position: 4000, duration: 500 },
+                { id: "eid39", tween: [ "transform", "${_speaker}", "translateY", '-435.99px', { fromValue: '-437.99px'}], position: 4500, duration: 1000 },
+                { id: "eid24", tween: [ "transform", "${_speaker}", "translateX", '70.01px', { fromValue: '-347.99px'}], position: 1000, duration: 2000 },
+                { id: "eid27", tween: [ "transform", "${_speaker}", "translateX", '102.01px', { fromValue: '70.01px'}], position: 3000, duration: 500 },
+                { id: "eid29", tween: [ "transform", "${_speaker}", "translateX", '206px', { fromValue: '102.01px'}], position: 3500, duration: 500 },
+                { id: "eid35", tween: [ "transform", "${_speaker}", "translateX", '304px', { fromValue: '206px'}], position: 4000, duration: 500 },
+                { id: "eid38", tween: [ "transform", "${_speaker}", "translateX", '424px', { fromValue: '304px'}], position: 4500, duration: 1000 },
+                { id: "eid63", tween: [ "transform", "${_watcher1}", "translateY", '-32px', { fromValue: '43.99px'}], position: 0, duration: 1500 },
+                { id: "eid71", tween: [ "transform", "${_watcher1}", "translateY", '-54px', { fromValue: '-32px'}], position: 1500, duration: 1000 },
+                { id: "eid81", tween: [ "transform", "${_watcher1}", "translateY", '-36px', { fromValue: '-54px'}], position: 2500, duration: 1500 },
+                { id: "eid67", tween: [ "transform", "${_watcher4}", "translateY", '-53.98px', { fromValue: '13.99px'}], position: 0, duration: 1500 },
+                { id: "eid73", tween: [ "transform", "${_watcher4}", "translateY", '-17.99px', { fromValue: '-53.98px'}], position: 1500, duration: 1000 },
+                { id: "eid66", tween: [ "transform", "${_watcher4}", "translateX", '801.99px', { fromValue: '1353.99px'}], position: 0, duration: 1500 },
+                { id: "eid72", tween: [ "transform", "${_watcher4}", "translateX", '853.99px', { fromValue: '801.99px'}], position: 1500, duration: 1000 },
+                { id: "eid78", tween: [ "transform", "${_watcher4}", "translateX", '807.99px', { fromValue: '853.99px'}], position: 2500, duration: 1500 },
+                { id: "eid69", tween: [ "transform", "${_watcher3}", "translateY", '-90px', { fromValue: '-92px'}], position: 0, duration: 1500 },
+                { id: "eid75", tween: [ "transform", "${_watcher3}", "translateY", '-99.99px', { fromValue: '-90px'}], position: 1500, duration: 1000 },
+                { id: "eid68", tween: [ "transform", "${_watcher3}", "translateX", '1140.02px', { fromValue: '1415.98px'}], position: 0, duration: 1500 },
+                { id: "eid74", tween: [ "transform", "${_watcher3}", "translateX", '1010.02px', { fromValue: '1140.02px'}], position: 1500, duration: 1000 },
+                { id: "eid79", tween: [ "transform", "${_watcher3}", "translateX", '980.02px', { fromValue: '1010.02px'}], position: 2500, duration: 1500 }         ]
+          }
+       }
+    }
 };

@@ -40,9 +40,9 @@ function onDocLoaded(){window.AdobeEdge.loaded=!0;fnCycle({event:"begin"});isCap
 
 loadResources([
 	/*edge*/
-	{ load: "js/edge/jquery-1.7.1.min.js"},
-	{ load: "js/edge/jquery.easing.1.3.js"},
-	{ load: "js/edge/edge.0.1.5.min.js"},
+	{ load: "js/vendor/edge/jquery-1.7.1.min.js"},
+	{ load: "js/vendor/edge/jquery.easing.1.3.js"},
+	{ load: "js/vendor/edge/edge.0.1.5.min.js"},
 	{test: !hasJSON, yep:"js/edge/json2_min.js"},
 	
 	/*doodle play*/
@@ -51,15 +51,26 @@ loadResources([
 	{ load: "js/doodle/util/symbol.js"},
 	{ load: "js/doodle/library/doodles.js"},
 	{ load: "js/doodle/library/scenes.js"},
+        
+    /**** UI ****/
+   
+    /*persistence DB*/
+    { load: "js/vendor/persistence/persistence.js"},
+    { load: "js/vendor/persistence/persistence.store.sql.js"},
+    { load: "js/vendor/persistence/persistence.store.websql.js"},
+    { load: "js/vendor/persistence/persistence.store.memory.js"},
 
+    /*vendor libs*/
+    { load: "js/vendor/mustache/mustache.js"},
+    { load: "js/vendor/bootstrap/js/bootstrap-modal.js"},
 
-    /*twitter bootstrap*/
-    { load: "bootstrap/js/bootstrap-modal.js"},
+    /*doodle UI*/
+    { load: "js/doodle/ui/data.js"},
+    { load: "js/doodle/ui/interface.js"},
 
-	/*start*/
-	{ load: "js/resources.js"},
-	{ load: "js/main.js"},
-    { load: "js/editor.js"}
+    
+    /*start*/
+	{ load: "js/main.js"}
     
 ], doDelayLoad);
 

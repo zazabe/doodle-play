@@ -15,6 +15,16 @@ Scenes.prototype = {
 			this.scenes[name] = new Scene(name, scenes[name]);
 		}
 	},	
+	
+	forEach: function(func, scope){
+        for(var name in this.scenes){
+            func.apply(scope  || this, [this.scenes[name], name]);
+        }
+    },
+    
+	getAll: function(){
+	    return this.scenes;
+	},	
 		
 	get: function(name){
 		return this.scenes[name];
@@ -51,9 +61,9 @@ var Scene = function(name, config){
 
 Scene.extend(util.Symbol, {
     
-    forEachDoodles: function(func){
+    forEachDoodles: function(func, scope){
         for(var name in this.doodles){
-            func.apply(this, [this.doodles[name], name, this.doodles[name].type || null]);
+            func.apply(scope || this, [this.doodles[name], name, this.doodles[name].type || null]);
         }
     },
     
@@ -68,7 +78,7 @@ Scene.extend(util.Symbol, {
     
     setDoodles: function(name, config){
         var doodle = lib.Doodles.get(config.type);
-        this.doodles[name] = doodle.getInstance(config);
+        this.doodles[name] = doodle.getInstance(name, config);
     },
     
     getSymbols: function(){

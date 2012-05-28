@@ -14,7 +14,13 @@ Doodles.prototype = {
 		    this.doodles[name] = new Doodle(name, config[name], this);
 		}
 	},
-	
+
+    forEach: function(func, scope){
+        for(var name in this.doodles){
+            func.apply(scope  || this, [this.doodles[name], name]);
+        }
+    },
+    	
 	get: function(name){
 		return this.doodles[name];
 	},
@@ -63,7 +69,8 @@ Doodle.extend(util.Symbol, {
         this.parts = {    
             body: {
                 type: this.config.type,
-                size: this.config.size
+                size: this.config.size,
+                css:  this.config.css || {}
             }
         };
 
@@ -71,15 +78,14 @@ Doodle.extend(util.Symbol, {
         for(var index in (this.config.part || [])){
             partName = this.config.part[index];
             if(part = this.doodles.getParts(partName)){
-                console.log('setParts', partName, this.doodles.getParts(partName));
                 this.parts[partName] = part;
             }
         }
     },
     
-    getInstance: function(config){
+    getInstance: function(id, config){
         var doodle = new DoodleInstance(this);
-        doodle.define(config);
+        doodle.define(id, config);
         return doodle;
     }
 });
@@ -103,10 +109,10 @@ DoodleInstance.SYMBOL  = 1;
 DoodleInstance.DEFINED = 2;
 
 DoodleInstance.extend(util.Symbol, {
-    define: function(config){
+    define: function(id, config){
         this.type = config.type;
         this.config = config;
-        
+        this.id = id;
     },
     
     setSymbols: function(symbols){
@@ -140,7 +146,7 @@ DoodleInstance.extend(util.Symbol, {
             else {
                 folder = name == 'body' ? this.type : name;
                 part.element.css({
-                    backgroundImage:     'url(' + lib.path + 'doodle/' + folder + '/' + conf.name + '.svg )',
+                    backgroundImage:     'url(' + lib.path + 'doodle/' + folder + '/' + conf.name + ($.DoodlePlay.dev ? '-dev' : '' ) +  '.svg )',
                     backgroundPositionX: -(part.size.width * conf.index) + 'px',
                     backgroundPositionY: '0px',
                     backgroundRepeat:    'no-repeat',

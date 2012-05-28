@@ -8,17 +8,16 @@ var data = {
        content: {
        dom: [
        {
-          rect: [66,242,600,400],
-          transform: [[-66,-242],[0,0],[0],[1,1]],
+          rect: [135,145,1000,300],
+          transform: [[-135,-145]],
           id: 'body',
-          type: 'rect',
+          type: 'rect'
        },
        {
-          rect: [200,120,270,135],
-          transform: [[-38,0],[0,0],[0],[1,1]],
+          rect: [90,79,241,132],
           font: ['Arial, Helvetica, sans-serif',47,'rgba(0,0,0,1)','normal','none','normal'],
           id: 'text',
-          text: 'Doodle forever',
+          text: 'Hello world',
           align: 'center',
           type: 'text'
        }],
@@ -28,20 +27,16 @@ var data = {
        states: {
           "Base State": {
              "${_text}": [
-                ["style", "font-size", '47px'],
-                ["style", "text-align", 'center'],
-                ["transform", "translateX", '-38px'],
-                ["style", "width", '270px'],
-                ["style", "padding", '20px'],
-                ["style", "line-height", '1.3em']
+                ["style", "line-height", '1.2em' ]
              ],
              "${_body}": [
-                ["transform", "translateX", '-66px'],
-                ["transform", "translateY", '-242px']
+                ["transform", "translateX", '-135px'],
+                ["transform", "translateY", '-145px'],
+                ["style", "clip", [0,500,300,0], {valueTemplate:'rect(@@0@@px @@1@@px @@2@@px @@3@@px)'} ]
              ],
              "${symbolSelector}": [
-                ["style", "height", '400px'],
-                ["style", "width", '600px']
+                ["style", "height", '300px'],
+                ["style", "width", '1000px']
              ]
           }
        },

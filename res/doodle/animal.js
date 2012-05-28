@@ -32,7 +32,7 @@ var data = {
           "Base State": {
              "${symbolSelector}": [
                 ["style", "height", '402px'],
-                ["style", "width", '1800px']
+                ["style", "width", '600px']
              ],
              "${_head}": [
                 ["transform", "translateX", '148px'],

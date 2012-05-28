@@ -31,11 +31,11 @@ var data = {
        states: {
           "Base State": {
              "${symbolSelector}": [
-                ["style", "height", '501px'],
-                ["style", "width", '4400px']
+                ["style", "height", '500px'],
+                ["style", "width", '400px']
              ],
              "${_head}": [
-                ["transform", "translateY", '-248px'],
+                ["transform", "translateY", '-450px'],
                 ["transform", "translateX", '7px'],
                 ["style", "clip", [0,400,400,0], {valueTemplate:'rect(@@0@@px @@1@@px @@2@@px @@3@@px)'} ]
              ],
@@ -44,7 +44,7 @@ var data = {
                 ["transform", "translateY", '-221px']
              ],
              "${_face}": [
-                ["transform", "translateY", '-57px'],
+                ["transform", "translateY", '-158px'],
                 ["transform", "translateX", '5px'],
                 ["style", "clip", [0,200,200,0], {valueTemplate:'rect(@@0@@px @@1@@px @@2@@px @@3@@px)'} ]
              ]

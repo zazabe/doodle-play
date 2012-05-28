@@ -27,7 +27,7 @@ var data = {
                 symbolName:'speaker'
              }
              ]
-          },
+          }, 
        states: {
           "Base State": {
              "${_Stage}": [

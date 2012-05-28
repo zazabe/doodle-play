@@ -1,0 +1,129 @@
+{
+    "config": {
+        "url": "res/"
+    },
+    "scenes": {
+        "background": [
+            "blank",
+            "countryside",
+            "island"
+        ],
+        "symbols": {
+            "basic": {
+                "doodles": {
+                    "doodle": {
+                        "type": ["human", "animal"]
+                    }
+                }
+            },
+            "falling": {
+                "doodles": {
+                    "speaker": {
+                        "type": ["human", "animal"]
+                    },
+                    "message": {
+                        "type": ["bubble"]
+                    }
+                }
+            },
+            "announcement": {
+                "doodles": {
+                    "speaker": {
+                        "type": ["human", "animal"]
+                    },
+                    "message": {
+                        "type": ["bubble"]
+                    }
+                }
+            },
+            "meeting": {
+                "doodles": {
+                    "speaker": {
+                        "type": ["animal"]
+                    },
+                    "watcher1": {
+                        "type": ["human", "animal"]
+                    },
+                    "watcher2": {
+                        "type": ["human", "animal"]
+                    },
+                    "watcher3": {
+                        "type": ["human", "animal"]
+                    },
+                    "watcher4": {
+                        "type": ["human", "animal"]
+                    },
+                    "message": {
+                        "type": ["bubble"]
+                    }
+                }
+            }
+        }
+    },
+    "doodles": {
+        "parts": {
+            "head": {
+                "type": [
+                    "girl",
+                    "sheep",
+                    "cow"   
+                ],
+                "size": {
+                    "width": 400,
+                    "height": 400
+                }
+            },
+            "face": {
+                "type": [
+                    "default"
+                ],
+                "size": {
+                    "width": 200,
+                    "height": 200
+                }
+            },
+            "text": {}
+        },
+        "symbols": {
+            "animal": {
+                "type": [
+                    "sheep",
+                    "cow"
+                ],
+                "part": [
+                    "head",
+                    "face"
+                ],
+                "size": {
+                    "width": 600,
+                    "height": 300
+                }
+            },
+            "human": {
+                "type": [
+                    "girl"
+                ],
+                "part": [
+                    "head",
+                    "face"
+                ],
+                "size": {
+                    "width": 400,
+                    "height": 400
+                }
+            },
+            "bubble": {
+                "type": [
+                    "speaking"
+                ],
+                "part": [
+                    "text"
+                ],
+                "size": {
+                    "width": 500,
+                    "height": 300
+                }
+            }
+        }
+    }
+}

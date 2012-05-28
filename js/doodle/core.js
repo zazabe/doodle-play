@@ -2,6 +2,8 @@
 (function($, Edge){
 
 var DoodlePlay = $.DoodlePlay = {
+	
+	dev: false,	
 		
 	scene: null,
 	composition: null,
@@ -30,17 +32,34 @@ var DoodlePlay = $.DoodlePlay = {
 	
 	edgeReady: function(Edge){
 	    var composition = this.composition = Edge.getComposition('doodleplay');
+	    
+        composition.getSymbolForDoodle = function(doodle){
+            var symbol = null, symbols = composition.getSymbols(doodle.name), regexp = null;
+            
+            for(var index in symbols){
+                regexp = new RegExp(doodle.id);
+                if(regexp.test(symbols[index].element.selector)){
+                    symbol = symbols[index];
+                }    
+            }
+            
+            return symbol;
+        };
+        
 	    this.scene.forEachDoodles(function(doodle){
-	        var symbols = null;
-	        if(symbols = composition.getSymbols(doodle.name)){
-	            doodle.setSymbols(symbols[0]);
+	        var symbol = composition.getSymbolForDoodle(doodle);
+	        if(symbol){
+	            doodle.setSymbols(symbol);
+	        }
+	        else {
+	            throw new Error('no symbol found for doodle ' + doodle.name);
 	        }
 	        
 	        this.setBackground();
             doodle.applyStyles();
-	        
-	        DoodlePlay.State.changeState('ready');
 	    });
+	    
+        DoodlePlay.State.changeState('ready');
 	},
 
 		
@@ -79,12 +98,23 @@ var DoodlePlay = $.DoodlePlay = {
 	/* scenes/doodles definition */
 	Library: {
 		path: window.location.href,
-		setup: function(resources){
-			this.path = window.location.href.replace(/([^\/]*)$/, resources.config.url);
-			this.setupScenes(resources.scenes);
-			this.setupDoodles(resources.doodles);
-			
-			DoodlePlay.State.changeState('load');
+		setup: function(){
+		    this.path = window.location.href.replace(/([^\/]*)$/, 'res/');
+            
+            var url = this.path + 'definition.json', lib = this; 
+            
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                success: function(result, status, request){
+                    lib.setupScenes(result.scenes);
+                    lib.setupDoodles(result.doodles);
+                    DoodlePlay.State.changeState('load');
+                },
+                error: function(result, status, request){
+                    throw new Error('can\'t not load doodle play resources ' + url);
+                }
+            });
 		}
 	},
 	
