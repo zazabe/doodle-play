@@ -45,6 +45,7 @@ DoodleUI.prototype = {
         }, this);
         
         select = this.renderField('select', 'Scene', 'scenes', scenes);
+		select += this.renderField('inputtext', 'Name', 'sceneName', []);
         
         this.container.append(tmp.render(this.templates.modal, {
             select: select,
@@ -199,7 +200,7 @@ DoodleUI.prototype = {
     },
     
     listen: function(){
-        var modalElements = this.els, bglimit = this.bgLimit;
+        var modalElements = this.els, bglimit = this.bgLimit, ui = this;
         
         this.els.close.live('click', function(){
 			console.log('close modal');
@@ -211,7 +212,7 @@ DoodleUI.prototype = {
 			modalElements.settings.modal('show');
         });
         
-        this.els.execute.bind('click', function(){ this.execute.apply(this);});
+        this.els.execute.bind('click', function(){ ui.execute.apply(ui);});
         
         this.$('#scenes').bind('change', function(){
             var selected = $('#' + $(this).val());
@@ -242,9 +243,55 @@ DoodleUI.prototype = {
             });
         }
     },
+	
+	getConfig: function(){
+		var config = {};
+		//scene
+		config.scene = $('#scenes').val();
+		
+		//doodles
+		var panel = $('#' + config.scene + '.panels'), doodles = {}, doodle = {};
+		
+		console.log(panel, panel.children());
+			
+		panel.children().each(function(){
+			var name = $(this).children('label').html(), controls = $(this).children('.controls');
+			doodle = {};
+			doodle.type = controls.children('select').val();
+			controls.children('div').children('div:visible').children('label').each(function(){
+				var partLabel = $(this);
+				if(partLabel.html() == 'text'){
+					doodle['text'] = {
+						text: partLabel.next().children('input').val(),
+						font: "markerfelt"
+					};
+				}
+				else {
+					doodle[partLabel.html()] = {
+						name: partLabel.next().children('select').val(),
+						index: parseInt(partLabel.next().children('.index').html())
+					};
+				}
+				
+			});
+			
+			doodles[name] = doodle;
+		});
+		
+		config.doodles = doodles;
+		
+		return config;
+	},
+	
+	setConfig: function(config){
+		
+	},
     
     execute: function(){
-        
+		dp.UI.Data.save($('#sceneName').val(), '', this.getConfig(), function(object){
+			console.log('saved', arguments);
+			window.location.href = window.location.href.replace(/([^\/]*)$/, '?scene_id=' + object.id);
+		});
     },
 
     $: function(selector){

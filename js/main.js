@@ -5,7 +5,10 @@
 	doodlePlay.Library.setup();
 	
     doodlePlay.State.load(function(){
-        this.create(ui.Data.getCurrentScene());
+		ui.Data.getCurrentScene(function(config){
+			doodlePlay.create(config);
+		});
+		
         var gui = new ui.Interface();
     });
     

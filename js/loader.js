@@ -21,16 +21,31 @@ AdobeEdge.yepnope = window.yepnope;
 
 
    var htFallbacks;
-var testEle=document.createElement("div");function isSupported(b){var f=testEle.style,d;for(i=0;i<b.length;i++)if(d=b[i],f[d]!==void 0)return!0;return!1}function supportsRGBA(){testEle.cssText="background-color:rgba(150,255,150,.5)";if((""+testEle.style.backgroundColor).indexOf("rgba")==0)return!0;return!1}
-var hasTransform=isSupported(["transformProperty","WebkitTransform","MozTransform","OTransform","msTransform"]),hasSVG=!!document.createElementNS&&!!document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect,hasRGBA=supportsRGBA(),hasJSON=window.JSON&&window.JSON.parse&&window.JSON.stringify;function safeColor(b){b=""+b;if(!hasRGBA&&b.indexOf("rgba")==0){var f=b.lastIndexOf(",");f>0&&(b="rgb("+b.substring(5,f)+")")}return b}
-function edgeCallback(b){htFallbacks[b]&&(b=htFallbacks[b]);AdobeEdge.preload.got[b]=!0;if(b==AdobeEdge.preload.last)AdobeEdge.okToLaunchComposition(compId),AdobeEdge.preload.busy=!1,AdobeEdge.preload.q.length>0&&(b=AdobeEdge.preload.q.pop(),AdobeEdge.requestResources(b.files,b.callback))}
-AdobeEdge.requestResources=AdobeEdge.requestResources||function(b,f){AdobeEdge.yepnope.errorTimeout=4E3;AdobeEdge.preload.busy=!0;AdobeEdge.preload.got=AdobeEdge.preload.got||{};var d,a=b.length,e=[],c;for(d=0;d<a;d++){c=b[d];if(typeof c==="string")url=c,c={load:url};else if(url=c.yep||c.load,c.callback){var j=c.callback;c.callback=function(a,b,c){j(a,b,c)&&f(a,b,c)}}if(!c.callback)c.callback=f;if(!AdobeEdge.preload.got[url])e.push(c),AdobeEdge.preload.last=url}e.length&&AdobeEdge.yepnope(e)};
-var filesToLoad,dlContent,preContent,doDelayLoad,loadingEvt,requiresSVG,htLookup={};function loadResources(b,f){AdobeEdge.preload=AdobeEdge.preload||[];AdobeEdge.preload.q=AdobeEdge.preload.q||[];f||!isCapable()?filesToLoad=b:AdobeEdge.preload.busy?AdobeEdge.preload.q.push({files:b,callback:edgeCallback}):AdobeEdge.requestResources(b,edgeCallback)}function findNWC(b,f){if(b.className==f)return b;for(var d=b.childNodes,a=0;a<d.length;a++){var e=findNWC(d[a],f);if(e!=!1)return e}return!1}
-function simpleContent(b,f,d){var a=document.getElementsByTagName("body")[0],d=d||findNWC(a,compId),e,c,j,g;if(d){if(d.style.position!="absolute"&&d.style.position!="relative")d.style.position="relative"}else d=a;for(var h=0;h<b.length;h++){a=b[h];a.type=="image"?(e=document.createElement("img"),e.src=a.fill[1]):e=document.createElement("div");e.id=a.id;g=e.style;if(a.type=="text"){if(c=a.font){if(c[0]&&c[0]!=="")g.fontFamily=c[0];typeof c[1]!="object"&&(c[1]=[c[1]]);c[1][1]||(c[1][1]="px");if(c[1][0]&&
-c[1][0]!=="")g.fontSize=c[1][0]+c[1][1];if(c[2]&&c[2]!=="")g.color=safeColor(c[2]);if(c[3]&&c[3]!=="")g.fontWeight=c[3];if(c[4]&&c[4]!=="")g.textDecoration=a.font[4];if(c[5]&&c[5]!=="")g.fontStyle=a.font[5]}if(a.align&&a.align!="auto")g.textAlign=a.align;if(a.position)g.position=a.position;if((!a.rect[2]||a.rect[2]<=0)&&(!a.rect[3]||a.rect[3]<=0))g.whiteSpace="nowrap";e.appendChild(document.createTextNode(a.text))}if(f)e.className=f;g.position="absolute";c=a.rect[0];j=a.rect[1];a.transform&&a.transform[0]&&
-(c+=a.transform[0][0],a.transform[0].length>1&&(j+=a.transform[0][1]));g.left=c+"px";g.top=j+"px";g.width=a.rect[2]+"px";g.height=a.rect[3]+"px";if(a.linkURL)htLookup[e.id]=a,e.onclick=function(){var a=htLookup[this.id];a.linkTarget?window.open(a.linkURL,a.linkTarget):window.location.href=a.linkURL},g.cursor="pointer";if(a.c)for(h=0;h<a.c.length;h++)simpleContent(a.c,f,e);d.appendChild(e)}}var fnCycle=function(b){b?fnCycle&&setTimeout(fnCycle,20):b={event:"loading",progress:0};loadingEvt&&loadingEvt(b)};
-window.AdobeEdge.preloadComplete=function(b){$(".edgePreload"+b).css("display","none");fnCycle=null;loadingEvt&&loadingEvt({event:"done",progress:1,reason:"complete"})};function isCapable(){if(hasTransform){if(requiresSVG&&!hasSVG)return!1;return!0}return!1}
-function onDocLoaded(){window.AdobeEdge.loaded=!0;fnCycle({event:"begin"});isCapable()?(preContent&&preContent.dom&&simpleContent(preContent.dom,"edgePreload"+compId),filesToLoad&&(loadResources(filesToLoad),filesToLoad=void 0)):dlContent&&dlContent.dom&&(loadingEvt&&loadingEvt({event:"done",progress:1,reason:"downlevel"}),simpleContent(dlContent.dom))}document.addEventListener?window.addEventListener("load",onDocLoaded,!1):document.attachEvent&&window.attachEvent("onload",onDocLoaded);
+var testEle=document.createElement("div");function isSupported(a){var e=testEle.style,d;for(i=0;i<a.length;i++)if(d=a[i],e[d]!==void 0)return!0;return!1}function supportsRGBA(){testEle.cssText="background-color:rgba(150,255,150,.5)";if((""+testEle.style.backgroundColor).indexOf("rgba")==0)return!0;return!1}
+var hasTransform=isSupported(["transformProperty","WebkitTransform","MozTransform","OTransform","msTransform"]),hasSVG=!!document.createElementNS&&!!document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect,hasRGBA=supportsRGBA(),hasJSON=window.JSON&&window.JSON.parse&&window.JSON.stringify;function safeColor(a){a=""+a;if(!hasRGBA&&a.indexOf("rgba")==0){var e=a.lastIndexOf(",");e>0&&(a="rgb("+a.substring(5,e)+")")}return a}
+function edgeCallback(a){htFallbacks[a]&&(a=htFallbacks[a]);AdobeEdge.preload.got[a]=!0;if(a==AdobeEdge.preload.last)AdobeEdge.okToLaunchComposition(compId),AdobeEdge.preload.busy=!1,AdobeEdge.preload.q.length>0&&(a=AdobeEdge.preload.q.pop(),AdobeEdge.requestResources(a.files,a.callback))}
+AdobeEdge.requestResources=AdobeEdge.requestResources||function(a,e){AdobeEdge.yepnope.errorTimeout=4E3;AdobeEdge.preload.busy=!0;AdobeEdge.preload.got=AdobeEdge.preload.got||{};var d,b=a.length,f=[],c;for(d=0;d<b;d++){c=a[d];if(typeof c==="string")url=c,c={load:url};else if(url=c.yep||c.load,c.callback){var j=c.callback;c.callback=function(a,b,c){j(a,b,c)&&e(a,b,c)}}if(!c.callback)c.callback=e;if(!AdobeEdge.preload.got[url])f.push(c),AdobeEdge.preload.last=url}f.length&&AdobeEdge.yepnope(f)};
+var filesToLoad,dlContent,preContent,doDelayLoad,loadingEvt,requiresSVG,htLookup={},aLoader,aEffectors;function loadResources(a,e){AdobeEdge.preload=AdobeEdge.preload||[];AdobeEdge.preload.q=AdobeEdge.preload.q||[];e||!isCapable()?filesToLoad=a:AdobeEdge.preload.busy?AdobeEdge.preload.q.push({files:a,callback:edgeCallback}):AdobeEdge.requestResources(a,edgeCallback)}
+function findNWC(a,e){if(a.className==e)return a;for(var d=a.childNodes,b=0;b<d.length;b++){var f=findNWC(d[b],e);if(f!=!1)return f}return!1}
+function simpleContent(a,e,d){var b=document.getElementsByTagName("body")[0],d=d||findNWC(b,compId),f,c,j,g;if(d){if(d.style.position!="absolute"&&d.style.position!="relative")d.style.position="relative"}else d=b;for(var h=0;h<a.length;h++){b=a[h];b.type=="image"?(f=document.createElement("img"),f.src=b.fill[1]):f=document.createElement("div");f.id=b.id;g=f.style;if(b.type=="text"){if(c=b.font){if(c[0]&&c[0]!=="")g.fontFamily=c[0];typeof c[1]!="object"&&(c[1]=[c[1]]);c[1][1]||(c[1][1]="px");if(c[1][0]&&
+c[1][0]!=="")g.fontSize=c[1][0]+c[1][1];if(c[2]&&c[2]!=="")g.color=safeColor(c[2]);if(c[3]&&c[3]!=="")g.fontWeight=c[3];if(c[4]&&c[4]!=="")g.textDecoration=b.font[4];if(c[5]&&c[5]!=="")g.fontStyle=b.font[5]}if(b.align&&b.align!="auto")g.textAlign=b.align;if(b.position)g.position=b.position;if((!b.rect[2]||b.rect[2]<=0)&&(!b.rect[3]||b.rect[3]<=0))g.whiteSpace="nowrap";f.appendChild(document.createTextNode(b.text))}if(e)f.className=e;g.position="absolute";c=b.rect[0];j=b.rect[1];b.transform&&b.transform[0]&&
+(c+=b.transform[0][0],b.transform[0].length>1&&(j+=b.transform[0][1]));g.left=c+"px";g.top=j+"px";g.width=b.rect[2]+"px";g.height=b.rect[3]+"px";if(b.linkURL)htLookup[f.id]=b,f.onclick=function(){var a=htLookup[this.id];a.linkTarget?window.open(a.linkURL,a.linkTarget):window.location.href=a.linkURL},g.cursor="pointer";if(b.c)for(h=0;h<b.c.length;h++)simpleContent(b.c,e,f);d.appendChild(f)}}
+var fnCycle=function(a){a?fnCycle&&setTimeout(fnCycle,20):a={event:"loading",progress:0};loadingEvt&&loadingEvt(a)},aBootcompsLoaded=[];if(!window.AdobeEdge.bootstrapListeners)window.AdobeEdge.bootstrapListeners=[];window.AdobeEdge.bootstrapCallback=function(a){window.AdobeEdge.bootstrapListeners.push(a);if(aBootcompsLoaded.length>0)for(var e=0;e<aBootcompsLoaded.length;e++)a(aBootcompsLoaded[e])};if(!window.AdobeEdge.preloadComplete)window.AdobeEdge.preloadComplete={};
+window.AdobeEdge.preloadComplete[compId]=function(a){$(".edgePreload"+a).css("display","none");fnCycle=null;loadingEvt&&loadingEvt({event:"done",progress:1,reason:"complete"});aBootcompsLoaded.push(a);for(var e=window.AdobeEdge.bootstrapListeners.length,d=0;d<e;d++)try{window.AdobeEdge.bootstrapListeners[d](a)}catch(b){console.log("bootstrap error "+b)}};function isCapable(){if(hasTransform){if(requiresSVG&&!hasSVG)return!1;return!0}return!1}
+function onDocLoaded(){window.AdobeEdge.loaded=!0;fnCycle({event:"begin"});isCapable()?(preContent&&preContent.dom&&simpleContent(preContent.dom,"edgePreload"+compId),filesToLoad&&(loadResources(filesToLoad),filesToLoad=void 0)):dlContent&&dlContent.dom&&(loadingEvt&&loadingEvt({event:"done",progress:1,reason:"downlevel"}),simpleContent(dlContent.dom))};
+if(document.addEventListener ){ 
+   window.addEventListener("load", onDocLoaded, false);
+} else if ( document.attachEvent ) {
+   window.attachEvent("onload", onDocLoaded );
+}
+
+
+function edgeCallback(a) {
+	console.log('edgeCallback', a);
+    htFallbacks[a] && (a = htFallbacks[a]);
+    AdobeEdge.preload.got[a] = !0;
+    //if (a == AdobeEdge.preload.last) AdobeEdge.okToLaunchComposition(compId), AdobeEdge.preload.busy = !1, AdobeEdge.preload.q.length > 0 && (a = AdobeEdge.preload.q.pop(), AdobeEdge.requestResources(a.files, a.callback))
+}
 
    requiresSVG=false;
 
@@ -38,11 +53,11 @@ function onDocLoaded(){window.AdobeEdge.loaded=!0;fnCycle({event:"begin"});isCap
    htFallbacks={
     };
 
-loadResources([
+	aLoader =[
 	/*edge*/
 	{ load: "js/vendor/edge/jquery-1.7.1.min.js"},
 	{ load: "js/vendor/edge/jquery.easing.1.3.js"},
-	{ load: "js/vendor/edge/edge.0.1.5.min.js"},
+	{ load: "js/vendor/edge/edge.0.1.6.dev.js"},
 	{test: !hasJSON, yep:"js/edge/json2_min.js"},
 	
 	/*doodle play*/
@@ -71,7 +86,9 @@ loadResources([
     /*start*/
 	{ load: "js/main.js"}
     
-], doDelayLoad);
+];
+
+loadResources(aLoader, doDelayLoad);
 
 
 preContent={dom:[]};

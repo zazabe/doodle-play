@@ -1,6 +1,10 @@
 /********************** DoodlePlay Core *********************/
 (function($, Edge){
 
+Edge.bootstrapCallback(function(compId){
+	console.log('bootstrapCallback', compId);
+});
+
 var DoodlePlay = $.DoodlePlay = {
 	
 	dev: false,	
@@ -24,18 +28,26 @@ var DoodlePlay = $.DoodlePlay = {
 		
 		var symbols = this.scene.getSymbols();
 		
-	    Edge.registerCompositionReadyHandler( 'doodleplay', function(){
-            DoodlePlay.edgeReady.apply(DoodlePlay, [Edge]);
-	    });
-    	Edge.registerCompositionDefn('doodleplay', symbols, [], []);
-		Edge.launchComposition('doodleplay');
+	
+		console.log('registerCompositionDefn', symbols, window.edge_authoring_mode, window.edge_symbol_import_mode , window.edge_comp_id );
+		Edge.registerCompositionDefn('doodleplay', symbols, [], []);
+		
+		Edge.registerCompositionReadyHandler('doodleplay', function(){
+			console.log('edgeReady');
+			DoodlePlay.composition = Edge.getComposition('doodleplay');
+			console.log('launchComposition doodleplay', DoodlePlay.composition);
+			DoodlePlay.edgeReady.apply(DoodlePlay, [Edge]);
+			
+			
+		});
+		
+		Edge.okToLaunchComposition('doodleplay');
+		
 	},
 	
 	edgeReady: function(Edge){
-	    var composition = this.composition = Edge.getComposition('doodleplay');
-	    
-        composition.getSymbolForDoodle = function(doodle){
-            var symbol = null, symbols = composition.getSymbols(doodle.name), regexp = null;
+	    this.composition.getSymbolForDoodle = function(doodle){
+            var symbol = null, symbols = this.getSymbols(doodle.name), regexp = null;
             
             for(var index in symbols){
                 regexp = new RegExp(doodle.id);
@@ -48,7 +60,7 @@ var DoodlePlay = $.DoodlePlay = {
         };
         
 	    this.scene.forEachDoodles(function(doodle){
-	        var symbol = composition.getSymbolForDoodle(doodle);
+		    var symbol = DoodlePlay.composition.getSymbolForDoodle(doodle);
 	        if(symbol){
 	            doodle.setSymbols(symbol);
 	        }
@@ -117,6 +129,8 @@ var DoodlePlay = $.DoodlePlay = {
                     throw new Error('can\'t not load doodle play resources ' + url);
                 }
             });
+			
+			
 		}
 	},
 	
