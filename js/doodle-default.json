@@ -1,8 +1,8 @@
 {
-    "scene": "meeting",
+    "scene": "basic",
     "background": "countryside",
     "doodles": {
-        "speaker": {
+        "doodle": {
             "type": "animal",
             "head": {
                 "name": "cow",

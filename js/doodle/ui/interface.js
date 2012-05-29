@@ -20,9 +20,7 @@ var DoodleUI = function(container, elements) {
         });
         return templates;
     })();
-
-    //this.els.settings.modal('hide');
-    
+ 
     this.doodleSelectors = [];
     this.bgLimit = {};
     
@@ -30,6 +28,9 @@ var DoodleUI = function(container, elements) {
     this.createForms();
     this.getElements();
     this.listen();
+	
+	 this.els.settings.modal('hide');
+   
 };  
 
 DoodleUI.prototype = {
@@ -53,7 +54,6 @@ DoodleUI.prototype = {
     
     createSceneForm: function(name, scene, status){
         var fields = '';
-        console.log(scene.doodles);
         scene.forEachDoodles(function(doodle, doodleName){
             fields += this.createDoodleForm(name, doodleName, doodle.type); 
         }, this);
@@ -192,7 +192,7 @@ DoodleUI.prototype = {
         this.els = {
             settings: this.$('#settings'),
             close:    this.$('.close'),
-            open:     this.$('.btn.settings'),
+            open:     $('.btn.settings'),
             execute:  this.$('.btn.apply'),
             panels:   this.$('.panels')
         };
@@ -201,12 +201,14 @@ DoodleUI.prototype = {
     listen: function(){
         var modalElements = this.els, bglimit = this.bgLimit;
         
-        this.els.close.bind('click', function(){
+        this.els.close.live('click', function(){
+			console.log('close modal');
             modalElements.settings.modal('hide');
         });
         
-        this.els.open.bind('click', function(){
-            modalElements.settings.modal('show');
+        this.els.open.live('click', function(){
+            console.log('open modal');
+			modalElements.settings.modal('show');
         });
         
         this.els.execute.bind('click', function(){ this.execute.apply(this);});
@@ -242,10 +244,6 @@ DoodleUI.prototype = {
     },
     
     execute: function(){
-        
-    },
-
-    getCurrentScene: function(){
         
     },
 

@@ -4,8 +4,8 @@
     doodlePlay.Library.setup();
     
     doodlePlay.State.load(function(){
+        this.create(ui.Data.getCurrentScene());
         var gui = new ui.Interface($('#doodleSettings'));
-        //this.create(ui.Data.getCurrentScene());
     });
     
     doodlePlay.State.ready(function(){
