@@ -2,6 +2,13 @@ body {
     margin:0;
     padding:0;
 	position: absolute;
+	
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #Stage {
@@ -18,11 +25,6 @@ body {
 	z-index: 1000;
 }
 
-
-.modal {
-    display: none;
-}
-
 .hidden {
     display: none;
 }
@@ -31,35 +33,79 @@ body {
     display: block;
 }
 
+/* modal */
+
+.modal {
+    display: none;
+}
+
+.modal-header .btn-group {
+    position: absolute;
+    right: 10px;
+}
+
+.modal-body {
+    margin: 7px 10px;
+}
+
+/* list */
+
+
+/* edit */
+
 .part-label {
     float: left;
     width: 40px;
     padding-top: 5px;
     text-align: left;
+    cursor: pointer;
 }
 
 .doodle-fields {
     margin: 15px;
 }
 
+.preview {
+    position: absolute;
+    height: 131px;
+    border: 1px solid #999;
+    width: 130px;
+    left: -160px;
+    top: 40px;
+}
+
+.controls {
+    position: relative;
+}
+
+
 .index {
     vertical-align: sub;
 }
 
-.decrease, .increase {
-    width: 24px;
-    height: 24px;
+.edition, .delete, .play, .decrease, .increase {
     display: inline-block;
     text-indent: -1000px;
     overflow: hidden;
+    cursor: pointer;
 }
 
-.decrease {
-    background: url(../images/prev.png) no-repeat;
+.edition, .delete, .play {
+    width: 16px;
+    height: 16px;
 }
 
-.increase {
-    background: url(../images/next.png) no-repeat;
+.decrease, .increase {
+    width: 32px;
+    height: 32px;
 }
+
+.edition  { background: url(../images/edit_small.png) no-repeat; }
+.delete   { background: url(../images/delete_small.png) no-repeat; }
+.play     { background: url(../images/play_small.png) no-repeat; }
+.decrease { background: url(../images/previous.png) no-repeat; }
+.increase { background: url(../images/next.png) no-repeat; }
+
+
 
 @font-face { font-family: markerfelt; src: url('fonts/markerfeltnormal.ttf'); } 

@@ -25,15 +25,47 @@ var DoodleUI = function(container, elements) {
     this.bgLimit = {};
     
     this.getBgConfig();
-    this.createForms();
-    this.getElements();
-    this.listen();
-	
-	 this.els.settings.modal({show: false});
-   
+    this.createModal(function(){
+        this.getElements();
+        this.listen();
+        this.els.settings.modal({show: false});
+        
+        dp.UI.Data.getCurrentScene(function(config, name){
+            this.setConfig(config, name);
+        }, this);
+            
+    }, this);
+    
 };  
 
 DoodleUI.prototype = {
+    
+    
+    createModal: function(callback, scope){
+        var ui = this, datas = this.createForms();
+        this.createList(function(result){
+            this.container.append(tmp.render(this.templates.modal, $.extend(datas, result)));    
+            
+            callback.apply(scope || ui, []);
+        }, this);
+    },
+    
+    createList: function(callback, scope){
+        var list = '', scenes = [], ui = this;
+        
+        dp.UI.Data.model.scene.all().list(null, function (results) {
+            results.forEach(function (r) {
+                scenes.push({
+                    shortid: r.id.substring(0,4),
+                    id: r.id,
+                    name: r.name
+                });
+            });
+            list = tmp.render(ui.templates.list, {scenes: scenes});
+            
+            callback.apply(scope || ui, [{list: list}]);
+        });
+    },
     
     createForms: function(){
         var panels = '', select = '', scenes = [], status = 'visible';
@@ -44,13 +76,20 @@ DoodleUI.prototype = {
             status = 'hidden';
         }, this);
         
-        select = this.renderField('select', 'Scene', 'scenes', scenes);
-		select += this.renderField('inputtext', 'Name', 'sceneName', []);
         
-        this.container.append(tmp.render(this.templates.modal, {
+        var bg = dp.Library.Scenes.background, background = [];
+        for(var index in bg){
+            background.push({name: bg[index], value: bg[index]});
+        }
+        
+        select = this.renderField('inputtext', 'Name', 'sceneName', []);
+        select += this.renderField('select', 'Scene', 'scenes', scenes);
+        select += this.renderField('select', 'Background', 'background', background);
+        
+        return  {
             select: select,
             panels: panels
-        }));
+        };
     },
     
     createSceneForm: function(name, scene, status){
@@ -78,7 +117,11 @@ DoodleUI.prototype = {
             var has = false;
             for(var i in types){
                 has = types[i] == doodle.name ? true : has;
-            }
+            }        
+        
+        
+          
+
             if(has){
                 
                 fields += '<div class="' + doodle.name + ' ' + status + '">';
@@ -93,15 +136,16 @@ DoodleUI.prototype = {
                         }
                         
                         doodleField = tmp.render(this.templates.doodleSelect, {
-                                        id: sceneName + '_' + doodle.name + '_' + id,
+                                        id: sceneName + '_' + doodleName + '_' + id,
                                         options: field,
+                                        incr: part.size.width,
                                         level: 2
                                       });
                             
                     }
                     else {
                         doodleField = tmp.render(this.templates.inputtext, {
-                                        id: sceneName + '_' + doodle.name + '_' + id,
+                                        id: sceneName + '_' + doodleName + '_' + id,
                                         options: '',
                                         level: 2
                                      });
@@ -109,7 +153,7 @@ DoodleUI.prototype = {
                     
                     fields += tmp.render(this.templates.doodleField, {
                         label:  id,
-                        id:     name + '_' + doodle.name + '_' + id,
+                        id:     name + '_' + doodleName + '_' + id,
                         field:  doodleField  
                     });
                 }
@@ -195,24 +239,104 @@ DoodleUI.prototype = {
             close:    this.$('.close'),
             open:     $('.btn.settings'),
             execute:  this.$('.btn.apply'),
-            panels:   this.$('.panels')
+            panels:   this.$('.panels'),
+            actions:  this.$('.btn-group .btn'),
+            views:    this.$('.views'),
+            edit:     this.$('.edition'),
+            play:     this.$('.play'),
+            preview:  this.$('.part-label'),
+            "delete": this.$('.delete'),
+            
         };
     },
     
     listen: function(){
         var modalElements = this.els, bglimit = this.bgLimit, ui = this;
         
+        this.els.preview.live('click', function(){
+            var el = $(this), part = el.html();
+            console.log(part);
+            
+            if(part != 'text'){
+                var file = el.next().children('select').val(),
+                    preview = el.parent().parent().parent().children('.preview');    
+                
+                console.log(file, el.parent().parent().parent(), preview);
+            
+                if(part != 'body'){
+                    preview.css({
+                        backgroundImage:     'url(' + dp.Library.path + 'doodle/' + part + '/' + file + '.svg )',
+                        backgroundPositionY: '0px',
+                        backgroundSize:      'auto 100%',
+                        backgroundRepeat:    'no-repeat',
+                    });
+                }
+                else {
+                    
+                }
+                    
+                
+            }
+            return false; 
+        });
+        
+        
+        this.els.edit.live('click', function(){
+            var el = $(this), id = el.attr('id');    
+            var q = dp.UI.Data.model.scene.all().filter("id", '=', id).limit(1);
+            q.one(null, function(result){
+                ui.setConfig(result.config, result.name);
+                ui.els.actions.removeClass('active');
+                ui.els.actions.filter('.edit').addClass('active');
+                modalElements.views.hide();
+                modalElements.views.filter('#edit').show();
+            });
+            return false; 
+        });
+        
+        this.els.play.live('click', function(){
+            var el = $(this), id = el.attr('id');    
+            window.location.href = window.location.href.replace(/([^\/]*)$/, '?scene_id=' + id);
+            return false; 
+        });
+        
+        this.els['delete'].live('click', function(){
+            var el = $(this), parent = el.parent().parent(),  id = el.attr('id');
+            
+            parent.css({opacity: 0.6});
+            
+            var q = dp.UI.Data.model.scene.all().filter("id", '=', id).limit(1);
+            q.one(null, function(result){
+                dp.UI.Data.db.remove(result);
+                dp.UI.Data.db.flush(function(){
+                    parent.remove();
+                });
+            });
+            return false;
+        });
+        
+        this.els.actions.live('click', function(){
+            modalElements.views.hide();
+            modalElements.views.filter('#' + $(this).html()).show();
+            return false;
+        });
+        
         this.els.close.live('click', function(){
 			console.log('close modal');
             modalElements.settings.modal('hide');
+            return false;
         });
         
         this.els.open.live('click', function(){
             console.log('open modal');
 			modalElements.settings.modal('show');
+			return false;
         });
         
-        this.els.execute.bind('click', function(){ ui.execute.apply(ui);});
+        this.els.execute.bind('click', function(){ 
+            ui.execute.apply(ui);
+            return false;
+        });
         
         this.$('#scenes').bind('change', function(){
             var selected = $('#' + $(this).val());
@@ -248,11 +372,9 @@ DoodleUI.prototype = {
 		var config = {};
 		//scene
 		config.scene = $('#scenes').val();
-		
+		config.background = $('#background').val();
 		//doodles
 		var panel = $('#' + config.scene + '.panels'), doodles = {}, doodle = {};
-		
-		console.log(panel, panel.children());
 			
 		panel.children().each(function(){
 			var name = $(this).children('label').html(), controls = $(this).children('.controls');
@@ -283,8 +405,41 @@ DoodleUI.prototype = {
 		return config;
 	},
 	
-	setConfig: function(config){
+	setConfig: function(config, name){
 		
+		$('#sceneName').val(name || '');
+        $('#scenes').val(config.scene);
+		$('#background').val(config.background);
+        
+        this.els.panels.hide();
+        var panel = this.els.panels.filter('#' + config.scene);
+        panel.show();
+        
+        
+        var doodle = null, part = null, elselect = null, eldoodle = null, select = null;
+        for(var name in config.doodles){
+            doodle = config.doodles[name];
+            elselect = $('#' + config.scene + '_' + name, panel);
+            eldoodle = $('.' + doodle.type, panel);
+            
+            elselect.val(doodle.type);
+            elselect.next().children().hide();
+            eldoodle.show();
+            
+            for(var partName in doodle){
+                if(partName != 'type'){
+                    part = doodle[partName], select = $('#' + config.scene + '_' + name  + '_' + partName, eldoodle);
+                    if(partName == 'text'){
+                        select.val(part.text);
+                    }
+                    else {
+                        select.val(part.name);
+                        select.next().next().html(part.index);
+                    }
+                }
+            }
+        }
+        
 	},
     
     execute: function(){

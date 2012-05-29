@@ -15,33 +15,68 @@
 		
 		<div id="Stage" class="doodleplay"></div>
 
-		<a class="btn settings" href="#settings">Settings</a>
+		<a class="btn settings" href="#">Settings</a>
 	
-		<div id="doodleSettings"></div>
 
 		<script id="modal" type="mustache/template">
 			<div class="modal" id="settings">
 				<div class="modal-header">
-					<button class="close" data-dismiss="modal">×</button>
-						<h3>Settings</h3>
+ 					    <div class="btn-group" data-toggle="buttons-radio">
+                          <button class="btn list active">list</button>
+                          <button class="btn edit">edit</button>
+                        </div>
+						<h3>PlayGround</h3>
 					</div>
-				<div class="modal-body">
-					<form class="form-horizontal">
-						<fieldset>
-							{{&select}}
-							
-							{{&panels}}
-						</fieldset>
-					</form>
+
+ 				<div class="modal-body">
+				    
+				    <div id="list" class="views">
+				        {{&list}}
+                    </div>
+				    
+				    <div id="edit" class="views hidden">
+    					<form class="form-horizontal">
+    						<fieldset>
+    							{{&select}}
+    							
+    							{{&panels}}
+    						</fieldset>
+    					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<a href="#" class="btn btn-primary apply">Apply</a>
+					<a href="#" class="btn btn-primary apply">Save</a>
 					<a href="#" class="btn close">Close</a>
 				</div>
 			</div>
 		</script>
 		
-		
+		<script id="list" type="mustache/template">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th style="width:330px;">Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#scenes}}
+              <tr>
+                <td>{{shortid}}...</td>
+                <td>{{name}}</td>
+                <td>
+                    <a class="play" id="{{id}}" href="#">play</a>
+                    <a class="edition" id="{{id}}" href="#">edit</a>
+                    <a class="delete" id="{{id}}" href="#">del</a>
+                </td>
+              </tr>
+              {{/scenes}}          
+            </tbody>
+          </table>
+        </script>
+        
+        
 		<script id="panel" type="mustache/template">
 			<div id="{{name}}" class="panels {{status}}">{{&fields}}</div>
 		</script>
@@ -55,6 +90,8 @@
 					<div>
 					{{&fields}}
 					</div>
+					<div class="preview"></div>
+
 				</div>
 			</div>
 		</script>
@@ -64,6 +101,7 @@
 			<div id="{{id}}" class="doodle-fields">
 					{{&field}}
 			</div>
+            
 		</script>
 		
 		<script id="doodleSelect" type="mustache/template">
@@ -73,9 +111,8 @@
 				{{/options}}
 			</select>
 			<a href="#" class="decrease">-</a>
-			<span class="index">0</span>
+			<span incr="{{incr}}" class="index">0</span>
 			<a href="#" class="increase">+</a>
-			
 			
 		</script>
 		

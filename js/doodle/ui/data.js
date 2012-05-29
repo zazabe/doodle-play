@@ -5,6 +5,7 @@ var DoodleData = function(){
     this.db = db;
 	this.model = {};
 	this.init();
+	this.currentScene = null;
 };
 
 DoodleData.prototype = {
@@ -23,29 +24,35 @@ DoodleData.prototype = {
 
 	
 	getCurrentScene: function(callback, scope){
-		var id = this.getSceneId(), datas = null;
-		if(id) {
-			var q = this.model.scene.all().filter("id", '=', id).limit(1);
-			q.one(null, function(result){
-				callback.apply(scope || this, [result.config]);
-			});
-		}
-		else {
-			var url = dp.Library.path + '../js/doodle-default.json';
-			$.ajax({
-				url: url,
-				async: true,
-				dataType: 'json',
-				success: function(result, status, request){
-					callback.apply(scope || this, [result]);
-				},
-				error: function(result, status, request){
-					throw new Error('can\'t not load doodle play default config');
-				}
-			});
-		}
+		var id = this.getSceneId(), datas = null, uidata = this;
+		if(!this.currentScene){
+			if(id) {
+                var q = this.model.scene.all().filter("id", '=', id).limit(1);
+                q.one(null, function(result){
+                    uidata.currentScene = result.config;
+                    callback.apply(scope || this, [result.config]);
+                });
+            }
+            else {
+                var url = dp.Library.path + '../js/doodle-default.json';
+                $.ajax({
+                    url: url,
+                    async: true,
+                    dataType: 'json',
+                    success: function(result, status, request){
+                        uidata.currentScene = result;
+                        callback.apply(scope || this, [result]);
+                    },
+                    error: function(result, status, request){
+                        throw new Error('can\'t not load doodle play default config');
+                    }
+                });
+            }
+        }
+        else {
+            callback.apply(scope || this, [this.currentScene]);
+        }
 		
-		return datas;
 	},
 	
 	getSceneId: function(){

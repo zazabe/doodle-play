@@ -1,15 +1,16 @@
 /* default scene, doodle definition */
+var uidebug = null;
 (function(doodlePlay, ui){
     
 	
 	doodlePlay.Library.setup();
 	
     doodlePlay.State.load(function(){
+		var gui =  uidebug = new ui.Interface();
+        
 		ui.Data.getCurrentScene(function(config){
-			doodlePlay.create(config);
+		    doodlePlay.create(config);
 		});
-		
-        var gui = new ui.Interface();
     });
     
     doodlePlay.State.ready(function(){

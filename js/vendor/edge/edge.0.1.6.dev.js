@@ -2315,15 +2315,9 @@ window.Modernizr = function (c, b, e) {
     function C(a) {
         var d, e = b.compositionDefns[a];
 		
-		
-		console.trace();
-		console.log('C', e && !e.launched && e.okToLaunch && e.launchCalled && (e.launched = !0, !window.edge_authoring_mode || window.edge_remote_authoring));
-			
-        if (true){//e && !e.launched && e.okToLaunch && e.launchCalled && (e.launched = !0, !window.edge_authoring_mode || window.edge_remote_authoring)) {
-            
-			console.log('C2', d, window.edge_remote_authoring);
-
-			window.edge_remote_authoring ? (b.autoPlay = !1, d = new b.Composition(a, {
+		//TODO: hi Adobe, can you help me to remove this Doodle Hack ??
+		if (true){//e && !e.launched && e.okToLaunch && e.launchCalled && (e.launched = !0, !window.edge_authoring_mode || window.edge_remote_authoring)) {
+            window.edge_remote_authoring ? (b.autoPlay = !1, d = new b.Composition(a, {
                 stage: "." + a
             }, {}), window.BYOD.initialize()) : d = new b.Composition(a, {
                 stage: "." + a
@@ -2335,8 +2329,7 @@ window.Modernizr = function (c, b, e) {
                 g && (g.insertBefore(f, g.firstChild), typeof e.styleSheets[0] !== "undefined" && e.styleSheets[0].insertRule("." + a + ", ." + a + " *{-webkit-transform:translateX(0px);}", 0))
             }
             d.ready(function () {
-				console.log('compo play');
-                (!window.edge_authoring_mode || window.edge_remote_authoring) && d.play()
+		        (!window.edge_authoring_mode || window.edge_remote_authoring) && d.play()
             })
         }
     }
@@ -3179,8 +3172,7 @@ window.Modernizr = function (c, b, e) {
     b.compositionFonts = b.compositionFonts || {};
     b.compositionReadyHandler = b.compositionReadyHandler || {};
     b.registerSymbolDefns = function (a, c) {
-		console.log('registerSymbolDefns', a, c, b.compositionDefns[a]);
-        if (a && !(a.length <= 0) && b.compositionDefns[a]) {
+		if (a && !(a.length <= 0) && b.compositionDefns[a]) {
             var d, e;
             for (d in c) if (c.hasOwnProperty(d)) {
                 var f = c[d];
@@ -3199,8 +3191,7 @@ window.Modernizr = function (c, b, e) {
                         if (j.sN != null) j.symbolName = j.sN;
                         if (j.a != null) j.autoPlay = j.a;
                         if (j.x != null) j.variables = j.x;
-						console.log('registerSymbolDefns j', j);
-                    }
+				    }
                 }
                 if (f.x) f.variables = f.x;
                 if (f.s) f.states = f.s;
@@ -3213,8 +3204,7 @@ window.Modernizr = function (c, b, e) {
                     if (h.a != null) h.autoPlay = h.a;
                     if (h.l) h.labels = h.l;
                     if (h.tt) h.timeline = h.tt
-					console.log('registerSymbolDefns h', h, f.timelines);
-                }
+		        }
             }
         }
     };

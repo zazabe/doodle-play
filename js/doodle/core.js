@@ -1,10 +1,6 @@
 /********************** DoodlePlay Core *********************/
 (function($, Edge){
 
-Edge.bootstrapCallback(function(compId){
-	console.log('bootstrapCallback', compId);
-});
-
 var DoodlePlay = $.DoodlePlay = {
 	
 	dev: false,	
@@ -28,17 +24,11 @@ var DoodlePlay = $.DoodlePlay = {
 		
 		var symbols = this.scene.getSymbols();
 		
-	
-		console.log('registerCompositionDefn', symbols, window.edge_authoring_mode, window.edge_symbol_import_mode , window.edge_comp_id );
 		Edge.registerCompositionDefn('doodleplay', symbols, [], []);
 		
 		Edge.registerCompositionReadyHandler('doodleplay', function(){
-			console.log('edgeReady');
 			DoodlePlay.composition = Edge.getComposition('doodleplay');
-			console.log('launchComposition doodleplay', DoodlePlay.composition);
 			DoodlePlay.edgeReady.apply(DoodlePlay, [Edge]);
-			
-			
 		});
 		
 		Edge.okToLaunchComposition('doodleplay');

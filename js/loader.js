@@ -41,8 +41,7 @@ if(document.addEventListener ){
 
 
 function edgeCallback(a) {
-	console.log('edgeCallback', a);
-    htFallbacks[a] && (a = htFallbacks[a]);
+	htFallbacks[a] && (a = htFallbacks[a]);
     AdobeEdge.preload.got[a] = !0;
     //if (a == AdobeEdge.preload.last) AdobeEdge.okToLaunchComposition(compId), AdobeEdge.preload.busy = !1, AdobeEdge.preload.q.length > 0 && (a = AdobeEdge.preload.q.pop(), AdobeEdge.requestResources(a.files, a.callback))
 }
@@ -78,6 +77,7 @@ function edgeCallback(a) {
     /*vendor libs*/
     { load: "js/vendor/mustache/mustache.js"},
     { load: "js/vendor/bootstrap/js/bootstrap-modal.js"},
+    { load: "js/vendor/bootstrap/js/bootstrap-button.js"},
 
     /*doodle UI*/
     { load: "js/doodle/ui/data.js"},
