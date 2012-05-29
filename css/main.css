@@ -1,6 +1,7 @@
 body {
     margin:0;
     padding:0;
+	position: absolute;
 }
 
 #Stage {
@@ -14,7 +15,9 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
+	z-index: 1000;
 }
+
 
 .modal {
     display: none;

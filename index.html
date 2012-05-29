@@ -11,99 +11,102 @@
 	    <script type="text/javascript" charset="utf-8" src="js/loader.js"></script>
 	</head>
 	<body>
+	
+		
 		<div id="Stage" class="doodleplay"></div>
+
+		<a class="btn settings" href="#settings">Settings</a>
+	
+		<div id="doodleSettings"></div>
+
+		<script id="modal" type="mustache/template">
+			<div class="modal" id="settings">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal">×</button>
+						<h3>Settings</h3>
+					</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<fieldset>
+							{{&select}}
+							
+							{{&panels}}
+						</fieldset>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn btn-primary apply">Apply</a>
+					<a href="#" class="btn close">Close</a>
+				</div>
+			</div>
+		</script>
 		
 		
-		<div id="doodleUI">
-            <a class="btn settings" data-toggle="modal" href="#myModal" >Setting</a>
-            <div id="doodleSettings"></div>
+		<script id="panel" type="mustache/template">
+			<div id="{{name}}" class="panels {{status}}">{{&fields}}</div>
+		</script>
+		
+		
+		<script id="doodleFields" type="mustache/template">
+			<div class="control-group">
+				<label for="text" class="control-label">{{label}}</label>
+				<div class="controls">
+					{{&select}}
+					<div>
+					{{&fields}}
+					</div>
+				</div>
+			</div>
+		</script>
+		
+		<script id="doodleField" type="mustache/template">
+			<label for="text" class="part-label">{{label}}</label>
+			<div id="{{id}}" class="doodle-fields">
+					{{&field}}
+			</div>
+		</script>
+		
+		<script id="doodleSelect" type="mustache/template">
+			<select id="{{id}}" class="span{{level}}">
+				{{#options}}
+				<option value="{{value}}">{{name}}</option>
+				{{/options}}
+			</select>
+			<a href="#" class="decrease">-</a>
+			<span class="index">0</span>
+			<a href="#" class="increase">+</a>
+			
+			
+		</script>
+		
+		
+		<script id="field" type="mustache/template">
+			<div class="control-group">
+				<label for="text" class="control-label">{{label}}</label>
+				<div class="controls">
+					{{&field}}
+				</div>
+			</div>
+		</script>
+		
+		
+		<script id="inputtext" type="mustache/template">
+			<input type="text" value="{{options}}" id="{{id}}" class="span{{level}}" />
+		</script>
+		
+		
+		<script id="select" type="mustache/template">
+			<select id="{{id}}" class="span{{level}}">
+				{{#options}}
+				<option value="{{value}}">{{name}}</option>
+				{{/options}}
+			</select>
+		</script>
 
 
-            <script id="modal" type="mustache/template">
-                <div class="modal" id="settings">
-                    <div class="modal-header">
-                        <button class="close" data-dismiss="modal">×</button>
-                            <h3>Settings</h3>
-                        </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal">
-                            <fieldset>
-                                {{&select}}
-                                
-                                {{&panels}}
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-primary apply">Apply</a>
-                        <a href="#" class="btn close">Close</a>
-                    </div>
-                </div>
-            </script>
-            
-            
-            <script id="panel" type="mustache/template">
-                <div id="{{name}}" class="panels {{status}}">{{&fields}}</div>
-            </script>
-            
-            
-            <script id="doodleFields" type="mustache/template">
-                <div class="control-group">
-                    <label for="text" class="control-label">{{label}}</label>
-                    <div class="controls">
-                        {{&select}}
-                        <div>
-                        {{&fields}}
-                        </div>
-                    </div>
-                </div>
-            </script>
-            
-            <script id="doodleField" type="mustache/template">
-                <label for="text" class="part-label">{{label}}</label>
-                <div id="{{id}}" class="doodle-fields">
-                        {{&field}}
-                </div>
-            </script>
-            
-            <script id="doodleSelect" type="mustache/template">
-                <select id="{{id}}" class="span{{level}}">
-                    {{#options}}
-                    <option value="{{value}}">{{name}}</option>
-                    {{/options}}
-                </select>
-                <a href="#" class="decrease">-</a>
-                <span class="index">0</span>
-                <a href="#" class="increase">+</a>
-                
-                
-            </script>
-            
-            
-            <script id="field" type="mustache/template">
-                <div class="control-group">
-                    <label for="text" class="control-label">{{label}}</label>
-                    <div class="controls">
-                        {{&field}}
-                    </div>
-                </div>
-            </script>
-            
-            
-            <script id="inputtext" type="mustache/template">
-                <input type="text" value="{{options}}" id="{{id}}" class="span{{level}}" />
-            </script>
-            
-            
-            <script id="select" type="mustache/template">
-                <select id="{{id}}" class="span{{level}}">
-                    {{#options}}
-                    <option value="{{value}}">{{name}}</option>
-                    {{/options}}
-                </select>
-            </script>
-
-        </div>
+		
+		
+		
         
 	</body>
 </html>

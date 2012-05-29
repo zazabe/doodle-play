@@ -1,11 +1,12 @@
 /* default scene, doodle definition */
 (function(doodlePlay, ui){
     
-    doodlePlay.Library.setup();
-    
+	
+	doodlePlay.Library.setup();
+	
     doodlePlay.State.load(function(){
         this.create(ui.Data.getCurrentScene());
-        var gui = new ui.Interface($('#doodleSettings'));
+        var gui = new ui.Interface();
     });
     
     doodlePlay.State.ready(function(){

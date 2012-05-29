@@ -2,7 +2,7 @@
 (function($, dp, tmp){
 
 var DoodleUI = function(container, elements) {
-    this.container = container;
+    this.container = container || $('body');
     
     /*
      * templates:
@@ -29,7 +29,7 @@ var DoodleUI = function(container, elements) {
     this.getElements();
     this.listen();
 	
-	 this.els.settings.modal('hide');
+	 this.els.settings.modal({show: false});
    
 };  
 
@@ -190,7 +190,7 @@ DoodleUI.prototype = {
     
     getElements: function(){
         this.els = {
-            settings: this.$('#settings'),
+            settings: $('#settings'),
             close:    this.$('.close'),
             open:     $('.btn.settings'),
             execute:  this.$('.btn.apply'),

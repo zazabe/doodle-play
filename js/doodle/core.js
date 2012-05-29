@@ -13,8 +13,6 @@ var DoodlePlay = $.DoodlePlay = {
 			throw new Error('DoodlePlay library is not loaded');
 		}
 		
-		console.log(config);
-		
 		this.scene = this.Library.Scenes.get(config.scene);
 		this.scene.define(config);
 		
@@ -26,10 +24,7 @@ var DoodlePlay = $.DoodlePlay = {
 		
 		var symbols = this.scene.getSymbols();
 		
-		console.log(symbols);
-		
 	    Edge.registerCompositionReadyHandler( 'doodleplay', function(){
-			console.log('edge ready').
             DoodlePlay.edgeReady.apply(DoodlePlay, [Edge]);
 	    });
     	Edge.registerCompositionDefn('doodleplay', symbols, [], []);
@@ -111,6 +106,7 @@ var DoodlePlay = $.DoodlePlay = {
             
             $.ajax({
                 url: url,
+				async: false,
                 dataType: 'json',
                 success: function(result, status, request){
                     lib.setupScenes(result.scenes);
@@ -127,5 +123,5 @@ var DoodlePlay = $.DoodlePlay = {
 	/* Util objects, helpers */
 	Util: {}
 };
-	
+
 })(jQuery, AdobeEdge)

@@ -68,7 +68,6 @@ loadResources([
     { load: "js/doodle/ui/data.js"},
     { load: "js/doodle/ui/interface.js"},
 
-    
     /*start*/
 	{ load: "js/main.js"}
     
