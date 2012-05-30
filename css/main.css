@@ -68,9 +68,8 @@ body {
 .preview {
     position: absolute;
     height: 131px;
-    border: 1px solid #999;
     width: 130px;
-    left: -160px;
+    left: -250px;
     top: 40px;
 }
 

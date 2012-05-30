@@ -137,9 +137,10 @@ DoodleUI.prototype = {
                         
                         doodleField = tmp.render(this.templates.doodleSelect, {
                                         id: sceneName + '_' + doodleName + '_' + id,
-                                        options: field,
                                         incr: part.size.width,
-                                        level: 2
+                                        options: field,
+                                        level: 2,
+										bgurl: dp.Library.path + 'doodle/' + (id == 'body' ? doodle.name : id) + '/%selected%.svg' 
                                       });
                             
                     }
@@ -198,17 +199,17 @@ DoodleUI.prototype = {
                     }
                     
                     if(size && exist){
-                        this.addBackgroundLimit(file, name, doodle.name,  size.width);
+                        this.addBackgroundLimit(file, name, doodle.name,  size);
                     }
                 }
             }
         }, this);
         
-        this.addBackgroundLimit('default', 'face', '',  200);
+        this.addBackgroundLimit('default', 'face', '',  {width: 200, height: 200});
                     
     },
     
-    addBackgroundLimit: function(file, partName, doodleName, width){
+    addBackgroundLimit: function(file, partName, doodleName, size){
         var id = partName + '_' + file;
         var bglimit = this.bgLimit;
         if(!bglimit[id]){
@@ -217,7 +218,15 @@ DoodleUI.prototype = {
             
             image.setAttribute('src', dp.Library.path + 'doodle/' + folder + '/' + file  +  '.svg');
             image.onload = function(){
-                bglimit[id] = (image.width/width) - 1;
+                bglimit[id] = {
+					limit: (image.width / size.width) - 1,
+					total: image.width,
+					image: {
+						width:  image.width,
+						height: image.height,
+					},
+					part: size
+				};
             };    
         }
     },
@@ -235,6 +244,7 @@ DoodleUI.prototype = {
     
     getElements: function(){
         this.els = {
+			scenes:   this.$('#scenes'),
             settings: $('#settings'),
             close:    this.$('.close'),
             open:     $('.btn.settings'),
@@ -244,42 +254,44 @@ DoodleUI.prototype = {
             views:    this.$('.views'),
             edit:     this.$('.edition'),
             play:     this.$('.play'),
-            preview:  this.$('.part-label'),
+            preview:  this.$('.partselect'),
+			increase: this.$('.increase'),
+			decrease: this.$('.decrease'),
             "delete": this.$('.delete'),
             
         };
     },
+	
+	setPreview: function(el, url, position, width){
+		
+		console.log(el, url, position, width);
+	
+		var css = {
+			backgroundPositionX: - (position || 0) + 'px',
+			backgroundPositionY: '0px',
+			backgroundSize:      'auto 100%',
+			backgroundRepeat:    'no-repeat',
+			width:               width
+		};
+		
+		if(el.css('backgroundImage') != 'url(' + url + ')'){
+			css.backgroundImage = 'url(' + url + ')';
+		}
+		
+		el.css(css);
+	},
     
     listen: function(){
         var modalElements = this.els, bglimit = this.bgLimit, ui = this;
         
-        this.els.preview.live('click', function(){
-            var el = $(this), part = el.html();
-            console.log(part);
-            
-            if(part != 'text'){
-                var file = el.next().children('select').val(),
-                    preview = el.parent().parent().parent().children('.preview');    
-                
-                console.log(file, el.parent().parent().parent(), preview);
-            
-                if(part != 'body'){
-                    preview.css({
-                        backgroundImage:     'url(' + dp.Library.path + 'doodle/' + part + '/' + file + '.svg )',
-                        backgroundPositionY: '0px',
-                        backgroundSize:      'auto 100%',
-                        backgroundRepeat:    'no-repeat',
-                    });
-                }
-                else {
-                    
-                }
-                    
-                
-            }
+        this.els.preview.live('change', function(){
+            var el = $(this), url = el.attr('bgurl').replace('%selected%', el.val());
+            var preview = el.parents('.controls').children('.preview');    
+			ui.setPreview(preview, url);
             return false; 
         });
         
+		
         
         this.els.edit.live('click', function(){
             var el = $(this), id = el.attr('id');    
@@ -338,24 +350,38 @@ DoodleUI.prototype = {
             return false;
         });
         
-        this.$('#scenes').bind('change', function(){
+        this.els.scenes.bind('change', function(){
             var selected = $('#' + $(this).val());
             modalElements.panels.hide();
             selected.show();
         });
         
-        this.$('.increase').live('click', function(){
-            var el = $(this), number = el.prev(), partName = el.parent().prev().html(), sel = el.parent().children('select'), val = parseInt(number.html());
-            var limit = bglimit[partName + '_' + sel.val()];
-            number.html(val + 1 <= limit ? val + 1 : val);
+		var changeBgPosition = function(){
+			var el = $(this), data = el.data('partPosition'), type = el.attr('class');
+			
+			if(!data){
+				data = {
+					number: type == 'increase' ? el.prev() : el.next(), 
+					sel: el.parent().children('select'), 
+					preview: el.parents('.controls').children('.preview'),
+					partName: el.parent().prev().html()
+				};
+				 el.data('partPosition', data);
+			}
+			var bg  = bglimit[data.partName + '_' + data.sel.val()],
+				val = parseInt(data.number.html()),
+				url = data.sel.attr('bgurl').replace('%selected%', data.sel.val());
+				
+            var current = type == 'increase' ? (val + 1 <= bg.limit ? val + 1 : val) : (val - 1 >= 0 ? val - 1 : val);
+			var width = (data.preview.height() / bg.part.height) * bg.part.width;
+			console.log(bg);
+			ui.setPreview(data.preview, url, (width * current), width);
+			data.number.html(current);
             return false;
-        });
-        
-        this.$('.decrease').live('click', function(){
-            var el = $(this), number = el.next(), val = parseInt(number.html());
-            number.html(val - 1 >= 0 ? val - 1 : val);
-            return false;
-        });
+		};
+		
+        this.els.increase.live('click', changeBgPosition);
+        this.els.decrease.live('click', changeBgPosition);
         
         var selector = null;
         for(var index in this.doodleSelectors){
